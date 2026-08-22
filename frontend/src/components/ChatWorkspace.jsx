@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {
+  BookOpen,
   Bot,
   Check,
   Copy,
@@ -168,62 +169,58 @@ function MarkdownMessage({ content }) {
   );
 }
 
-// Reveals `content` word-by-word regardless of how big each incoming chunk is.
-// This keeps the "typing" feel even if the backend sends large token bursts
-// or the whole answer at once.
-function AnimatedMessage({ content, streaming }) {
-  const [displayed, setDisplayed] = useState(streaming ? "" : content);
-  const displayedRef = useRef(streaming ? "" : content);
-  const targetRef = useRef(content);
-  const streamingRef = useRef(streaming);
-  const timerRef = useRef(null);
-
-  targetRef.current = content;
-  streamingRef.current = streaming;
-
-  useEffect(() => {
-    if (timerRef.current) return undefined;
-
-    const tick = () => {
-      const target = targetRef.current || "";
-      const shown = displayedRef.current || "";
-
-      if (shown.length >= target.length) {
-        if (!streamingRef.current) {
-          clearInterval(timerRef.current);
-          timerRef.current = null;
-        }
-        return;
-      }
-
-      let nextBoundary = target.indexOf(" ", shown.length + 1);
-      if (nextBoundary === -1) nextBoundary = target.length;
-      const next = target.slice(0, nextBoundary);
-      displayedRef.current = next;
-      setDisplayed(next);
-    };
-
-    timerRef.current = setInterval(tick, 28);
-    return () => {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content, streaming]);
-
-  useEffect(() => {
-    if (!streaming && displayedRef.current !== content) {
-      // If a message finishes instantly (non-streamed), just show it fully.
-      displayedRef.current = content;
-      setDisplayed(content);
-    }
-  }, [streaming, content]);
-
+// Renders streamed content directly — no artificial ticker delay.
+// The SSE stream delivers tokens progressively, which naturally creates
+// the ChatGPT-like typing effect without any client-side word-revealing.
+function StreamingMessage({ content, streaming }) {
   return (
     <>
-      <MarkdownMessage content={displayed} />
+      <MarkdownMessage content={content} />
       {streaming && <span className="live-cursor" aria-label="Streaming response" />}
     </>
+  );
+}
+
+// Small badge that shows how many knowledge-base sources were used.
+// Clicking it opens a compact popup listing each source.
+function SourcesCitation({ sources }) {
+  const [open, setOpen] = useState(false);
+
+  if (!sources || sources.length === 0) return null;
+
+  return (
+    <div className="sources-row">
+      <button
+        className="sources-badge"
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-label={`${sources.length} source${sources.length > 1 ? "s" : ""} used`}
+      >
+        <BookOpen size={13} />
+        {sources.length} source{sources.length > 1 ? "s" : ""}
+      </button>
+
+      {open && (
+        <>
+          <div
+            className="sources-popup-overlay"
+            onClick={() => setOpen(false)}
+            onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
+          />
+          <div className="sources-popup">
+            <p className="sources-popup-title">Knowledge sources used</p>
+            {sources.map((src, idx) => (
+              <div key={src.id || idx} className="source-item">
+                <span className="source-item-title">{src.title}</span>
+                <span className="source-item-meta">
+                  {src.domain?.toUpperCase()} · {src.source}
+                </span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -435,7 +432,11 @@ export default function ChatWorkspace({ user, onSignOut }) {
               updatedAt: new Date().toISOString(),
               messages: c.messages.map((entry) =>
                 entry.id === assistantMessage.id
-                  ? { ...entry, streaming: false }
+                  ? {
+                      ...entry,
+                      streaming: false,
+                      sources: payload.retrieved_context || [],
+                    }
                   : entry,
               ),
             } : c
@@ -667,10 +668,15 @@ export default function ChatWorkspace({ user, onSignOut }) {
                   </div>
                   <div className="message-bubble">
                     {message.role === "assistant" ? (
-                      <AnimatedMessage
-                        content={message.content}
-                        streaming={!!message.streaming}
-                      />
+                      <>
+                        <StreamingMessage
+                          content={message.content}
+                          streaming={!!message.streaming}
+                        />
+                        {!message.streaming && (
+                          <SourcesCitation sources={message.sources} />
+                        )}
+                      </>
                     ) : (
                       <p>{message.content}</p>
                     )}
