@@ -18,14 +18,24 @@ export default function ProfilePanel({ user, onClose, onSignOut }) {
         <h2>{name}</h2>
         <p>{user.email}</p>
 
+        <form className="profile-form" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+          <label>
+            Full Name
+            <input type="text" defaultValue={name} />
+          </label>
+          <label>
+            Email
+            <input type="email" defaultValue={user.email} disabled />
+          </label>
+          <button className="primary-button full" type="submit" style={{ marginTop: '10px' }}>
+            Update Profile
+          </button>
+        </form>
+
         <div className="profile-list">
           <div>
             <User size={18} />
             Profile synced with Supabase Auth
-          </div>
-          <div>
-            <Mail size={18} />
-            Email identity enabled
           </div>
           <div>
             <Shield size={18} />

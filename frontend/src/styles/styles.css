@@ -1,21 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #070b14;
-  --panel: rgba(13, 18, 31, 0.78);
-  --panel-solid: #101725;
-  --panel-strong: #151f32;
-  --line: rgba(255, 255, 255, 0.12);
-  --text: #f4f7fb;
-  --muted: #9aa8bd;
-  --accent: #26d7ae;
-  --accent-strong: #10b981;
+  --bg: #212121;
+  --panel: #171717;
+  --panel-solid: #171717;
+  --panel-strong: #171717;
+  --line: #424242;
+  --text: #ececec;
+  --muted: #b4b4b4;
+  --accent: #10a37f;
+  --accent-strong: #1a7f64;
   --gold: #ffc857;
   --rose: #ff6b8a;
   --blue: #5bbcff;
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+  --shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  font-family: Söhne, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -24,16 +22,19 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at 18% 10%, rgba(38, 215, 174, 0.18), transparent 28rem),
-    radial-gradient(circle at 82% 12%, rgba(91, 188, 255, 0.14), transparent 30rem),
-    linear-gradient(135deg, #060912 0%, #101522 45%, #06121a 100%);
+  height: 100%;
+  background: var(--bg);
   color: var(--text);
+}
+
+#root {
+  height: 100%;
 }
 
 button,
@@ -531,16 +532,21 @@ a {
   display: grid;
   grid-template-columns: 318px 1fr;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .sidebar {
-  background: rgba(5, 8, 15, 0.8);
+  background: var(--panel);
   border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   gap: 18px;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
   padding: 18px;
 }
 
@@ -567,8 +573,8 @@ a {
 
 .agent-tab {
   align-items: center;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid var(--line);
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: 8px;
   color: var(--muted);
   cursor: pointer;
@@ -579,9 +585,9 @@ a {
   text-align: left;
 }
 
-.agent-tab.active {
-  background: rgba(38, 215, 174, 0.12);
-  border-color: rgba(38, 215, 174, 0.42);
+.agent-tab.active,
+.agent-tab:hover {
+  background: var(--line);
   color: var(--text);
 }
 
@@ -616,8 +622,7 @@ a {
 
 .conversation-item:hover,
 .conversation-item.active {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: var(--line);
+  background: var(--line);
 }
 
 .conversation-item span {
@@ -631,23 +636,22 @@ a {
 }
 
 .chat-shell {
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 36px 36px;
+  background: var(--bg);
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
   position: relative;
 }
 
 .chat-topbar {
-  backdrop-filter: blur(18px);
-  background: rgba(9, 14, 24, 0.78);
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
   gap: 14px;
-  min-height: 74px;
-  padding: 14px 20px;
+  min-height: 60px;
+  padding: 10px 20px;
   position: relative;
   z-index: 2;
 }
@@ -656,6 +660,7 @@ a {
   aspect-ratio: 1;
   padding: 0;
   width: 42px;
+  color: var(--muted);
 }
 
 .agent-status {
@@ -668,10 +673,10 @@ a {
 
 .agent-icon {
   align-items: center;
-  background: rgba(38, 215, 174, 0.13);
-  border: 1px solid rgba(38, 215, 174, 0.28);
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: 8px;
-  color: var(--accent);
+  color: var(--text);
   display: flex;
   height: 42px;
   justify-content: center;
@@ -698,7 +703,7 @@ a {
 
 .profile-chip {
   align-items: center;
-  background: rgba(255, 255, 255, 0.07);
+  background: transparent;
   border: 1px solid var(--line);
   border-radius: 8px;
   color: var(--text);
@@ -709,11 +714,22 @@ a {
   min-height: 42px;
   padding: 0 12px;
 }
+.profile-chip:hover {
+  background: var(--panel);
+}
 
 .messages-panel {
   min-height: 0;
+  height: 100%;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 26px min(5vw, 70px);
+}
+
+.messages-inner {
+  display: block;
 }
 
 .message {
@@ -730,9 +746,9 @@ a {
 
 .message-avatar {
   align-items: center;
-  background: var(--panel-strong);
+  background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 4px;
   display: flex;
   flex: 0 0 auto;
   height: 36px;
@@ -741,22 +757,22 @@ a {
 }
 
 .message-bubble {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  background: transparent;
+  border: none;
   max-width: min(720px, 100%);
-  padding: 14px 16px;
+  padding: 4px 16px;
   position: relative;
 }
 
 .message.user .message-bubble {
-  background: rgba(91, 188, 255, 0.13);
-  border-color: rgba(91, 188, 255, 0.24);
+  background: #2f2f2f;
+  border: none;
+  border-radius: 16px;
 }
 
 .message.assistant .message-bubble {
-  background: rgba(38, 215, 174, 0.09);
-  border-color: rgba(38, 215, 174, 0.18);
+  background: transparent;
+  border: none;
 }
 
 .message-bubble p {
@@ -767,7 +783,7 @@ a {
 
 .live-cursor {
   animation: blink 900ms steps(2) infinite;
-  background: var(--accent);
+  background: var(--text);
   display: inline-block;
   height: 18px;
   margin-left: 4px;
@@ -787,10 +803,10 @@ a {
 
 .spark-card {
   align-items: center;
-  background: rgba(38, 215, 174, 0.12);
-  border: 1px solid rgba(38, 215, 174, 0.26);
+  background: var(--bg);
+  border: 1px solid var(--line);
   border-radius: 8px;
-  color: var(--accent);
+  color: var(--text);
   display: flex;
   height: 62px;
   justify-content: center;
@@ -818,7 +834,7 @@ a {
 }
 
 .prompt-grid button {
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 8px;
   color: var(--text);
@@ -830,38 +846,59 @@ a {
 }
 
 .prompt-grid button:hover {
-  border-color: rgba(38, 215, 174, 0.42);
+  background: var(--panel);
 }
 
 .composer {
   align-items: end;
-  backdrop-filter: blur(18px);
-  background: rgba(9, 14, 24, 0.78);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  background: #2f2f2f;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   display: grid;
   gap: 12px;
   grid-template-columns: 1fr auto;
-  margin: 0 min(5vw, 70px) 22px;
-  padding: 12px;
+  margin: 0 auto calc(22px + env(safe-area-inset-bottom, 0px));
+  max-width: 768px;
+  width: calc(100% - 24px);
+  padding: 8px 12px;
+  box-sizing: border-box;
 }
 
 .composer textarea {
   background: transparent;
   border: 0;
   color: var(--text);
-  max-height: 150px;
-  min-height: 42px;
+  font-size: 16px;
+  max-height: 200px;
+  min-height: 24px;
   outline: 0;
   padding: 10px 8px;
-  resize: vertical;
+  resize: none;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .send-button {
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 8px;
   aspect-ratio: 1;
-  min-height: 46px;
+  min-height: 32px;
   padding: 0;
-  width: 46px;
+  width: 32px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.send-button:hover {
+  background: #fff;
+  color: var(--bg);
+}
+.send-button:disabled {
+  background: #676767;
+  color: #2f2f2f;
 }
 
 .error-toast {
@@ -921,6 +958,28 @@ a {
   overflow-wrap: anywhere;
 }
 
+.profile-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.profile-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.profile-form input {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  min-height: 40px;
+  padding: 0 12px;
+}
+
 .profile-list {
   display: grid;
   gap: 12px;
@@ -929,7 +988,7 @@ a {
 
 .profile-list div {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 8px;
   display: flex;
@@ -1096,6 +1155,12 @@ a {
   }
 }
 
+@media (max-width: 760px) and (min-width: 621px) {
+  .prompt-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 620px) {
   .landing-nav,
   .hero-section,
@@ -1149,6 +1214,12 @@ a {
   }
 
   .composer {
-    margin: 0 12px 12px;
+    margin: 0 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+  }
+
+  .chat-topbar {
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
   }
 }

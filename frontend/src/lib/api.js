@@ -37,6 +37,7 @@ export async function streamChat({
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
   let buffer = "";
+  let accumulatedText = "";
 
   while (true) {
     const { value, done } = await reader.read();
@@ -56,7 +57,24 @@ export async function streamChat({
       const payload = JSON.parse(line.replace(/^data:\s*/, ""));
 
       if (payload.type === "start") onStart?.(payload);
-      if (payload.type === "token") onToken?.(payload.token || "");
+      if (payload.type === "thinking") {
+        accumulatedText = "_Thinking..._\n\n";
+        onToken?.(accumulatedText);
+      }
+      if (payload.type === "token") {
+        accumulatedText += payload.token || "";
+        onToken?.(accumulatedText);
+      }
+      if (payload.type === "block" && payload.block) {
+        if (accumulatedText === "_Thinking..._\n\n") {
+          accumulatedText = "";
+        }
+        if (payload.block.title) {
+           accumulatedText += `**${payload.block.title}**\n\n`;
+        }
+        accumulatedText += `${payload.block.content}\n\n`;
+        onToken?.(accumulatedText); // Passing full accumulated text
+      }
       if (payload.type === "done") onDone?.(payload);
       if (payload.type === "error") throw new Error(payload.detail);
     }

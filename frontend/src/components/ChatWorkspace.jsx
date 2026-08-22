@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import {
   Bot,
   FileSearch,
@@ -50,6 +50,65 @@ const quickPrompts = {
   ],
 };
 
+// Reveals `content` word-by-word regardless of how big each incoming chunk is.
+// This keeps the "typing" feel even if the backend sends large token bursts
+// or the whole answer at once.
+function AnimatedMessage({ content, streaming }) {
+  const [displayed, setDisplayed] = useState(streaming ? "" : content);
+  const displayedRef = useRef(streaming ? "" : content);
+  const targetRef = useRef(content);
+  const streamingRef = useRef(streaming);
+  const timerRef = useRef(null);
+
+  targetRef.current = content;
+  streamingRef.current = streaming;
+
+  useEffect(() => {
+    if (timerRef.current) return undefined;
+
+    const tick = () => {
+      const target = targetRef.current || "";
+      const shown = displayedRef.current || "";
+
+      if (shown.length >= target.length) {
+        if (!streamingRef.current) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+        }
+        return;
+      }
+
+      let nextBoundary = target.indexOf(" ", shown.length + 1);
+      if (nextBoundary === -1) nextBoundary = target.length;
+      const next = target.slice(0, nextBoundary);
+      displayedRef.current = next;
+      setDisplayed(next);
+    };
+
+    timerRef.current = setInterval(tick, 28);
+    return () => {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content, streaming]);
+
+  useEffect(() => {
+    if (!streaming && displayedRef.current !== content) {
+      // If a message finishes instantly (non-streamed), just show it fully.
+      displayedRef.current = content;
+      setDisplayed(content);
+    }
+  }, [streaming, content]);
+
+  return (
+    <p>
+      {displayed}
+      {streaming && <span className="live-cursor" aria-label="Streaming response" />}
+    </p>
+  );
+}
+
 export default function ChatWorkspace({ user, onSignOut }) {
   const [agents, setAgents] = useState(fallbackAgents);
   const [selectedAgent, setSelectedAgent] = useState("rti");
@@ -60,7 +119,8 @@ export default function ChatWorkspace({ user, onSignOut }) {
   const [error, setError] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const messagesEndRef = useRef(null);
+  const messagesPanelRef = useRef(null);
+  const stickToBottomRef = useRef(true);
 
   useEffect(() => {
     fetchAgents()
@@ -72,7 +132,8 @@ export default function ChatWorkspace({ user, onSignOut }) {
     const saved = loadConversations(user.id);
     if (saved.length) {
       setConversations(saved);
-      setActiveId(saved[0].id);
+      // Do not auto-select a conversation on login/refresh to start with a fresh view.
+      setActiveId(null);
       setSelectedAgent(saved[0].agentId);
       return;
     }
@@ -86,9 +147,36 @@ export default function ChatWorkspace({ user, onSignOut }) {
     if (conversations.length) saveConversations(user.id, conversations);
   }, [conversations, user.id]);
 
+  // Track whether the user is scrolled near the bottom, so we only auto-scroll
+  // when they haven't intentionally scrolled up to read earlier messages.
+  const handlePanelScroll = useCallback(() => {
+    const panel = messagesPanelRef.current;
+    if (!panel) return;
+    const distanceFromBottom =
+      panel.scrollHeight - panel.scrollTop - panel.clientHeight;
+    stickToBottomRef.current = distanceFromBottom < 120;
+  }, []);
+
+  const scrollToBottom = useCallback((smooth = true) => {
+    const panel = messagesPanelRef.current;
+    if (!panel) return;
+    panel.scrollTo({
+      top: panel.scrollHeight,
+      behavior: smooth ? "smooth" : "auto",
+    });
+  }, []);
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [conversations, activeId, busy]);
+    if (stickToBottomRef.current) {
+      scrollToBottom(false);
+    }
+  }, [activeId, scrollToBottom]);
+
+  useEffect(() => {
+    if (stickToBottomRef.current) {
+      scrollToBottom(true);
+    }
+  }, [conversations, busy, scrollToBottom]);
 
   const activeConversation = useMemo(
     () => conversations.find((conversation) => conversation.id === activeId),
@@ -114,21 +202,31 @@ export default function ChatWorkspace({ user, onSignOut }) {
     setActiveId(next.id);
     setSelectedAgent(agentId);
     setSidebarOpen(false);
+    stickToBottomRef.current = true;
   }
 
   function selectConversation(conversation) {
     setActiveId(conversation.id);
     setSelectedAgent(conversation.agentId);
     setSidebarOpen(false);
+    stickToBottomRef.current = true;
   }
 
   async function sendMessage(text = input) {
     const message = text.trim();
-    if (!message || busy || !activeConversation) return;
+    if (!message || busy) return;
+
+    let targetConversation = activeConversation;
+    if (!targetConversation) {
+      targetConversation = makeConversation(selectedAgent);
+      setConversations((current) => [targetConversation, ...current]);
+      setActiveId(targetConversation.id);
+    }
 
     setInput("");
     setBusy(true);
     setError("");
+    stickToBottomRef.current = true;
 
     const userMessage = {
       id: crypto.randomUUID(),
@@ -144,69 +242,83 @@ export default function ChatWorkspace({ user, onSignOut }) {
       streaming: true,
     };
 
-    updateActive((conversation) => ({
-      ...conversation,
-      title:
-        conversation.messages.length === 0
-          ? message.slice(0, 54)
-          : conversation.title,
-      updatedAt: new Date().toISOString(),
-      messages: [...conversation.messages, userMessage, assistantMessage],
-    }));
+    setConversations((current) =>
+      current.map((conversation) =>
+        conversation.id === targetConversation.id
+          ? {
+              ...conversation,
+              title:
+                conversation.messages.length === 0
+                  ? message.slice(0, 54)
+                  : conversation.title,
+              updatedAt: new Date().toISOString(),
+              messages: [...conversation.messages, userMessage, assistantMessage],
+            }
+          : conversation
+      )
+    );
 
     try {
       await streamChat({
         agentId: selectedAgent,
         message,
-        conversationId: activeConversation.backendId,
-        history: activeConversation.messages
+        conversationId: targetConversation.backendId,
+        history: targetConversation.messages
           .filter((entry) => entry.role === "user" || entry.role === "assistant")
           .slice(-10)
           .map((entry) => ({ role: entry.role, content: entry.content })),
         onStart: (payload) => {
-          updateActive((conversation) => ({
-            ...conversation,
-            backendId: payload.conversation_id || conversation.backendId,
-          }));
+          setConversations((current) => current.map((c) =>
+            c.id === targetConversation.id ? {
+              ...c,
+              backendId: payload.conversation_id || c.backendId,
+            } : c
+          ));
         },
-        onToken: (token) => {
-          updateActive((conversation) => ({
-            ...conversation,
-            messages: conversation.messages.map((entry) =>
-              entry.id === assistantMessage.id
-                ? { ...entry, content: entry.content + token }
-                : entry,
-            ),
-          }));
+        onToken: (fullText) => {
+          setConversations((current) => current.map((c) =>
+            c.id === targetConversation.id ? {
+              ...c,
+              messages: c.messages.map((entry) =>
+                entry.id === assistantMessage.id
+                  ? { ...entry, content: fullText }
+                  : entry,
+              ),
+            } : c
+          ));
         },
-        onDone: () => {
-          updateActive((conversation) => ({
-            ...conversation,
-            updatedAt: new Date().toISOString(),
-            messages: conversation.messages.map((entry) =>
-              entry.id === assistantMessage.id
-                ? { ...entry, streaming: false }
-                : entry,
-            ),
-          }));
+        onDone: (payload) => {
+          setConversations((current) => current.map((c) =>
+            c.id === targetConversation.id ? {
+              ...c,
+              updatedAt: new Date().toISOString(),
+              messages: c.messages.map((entry) =>
+                entry.id === assistantMessage.id
+                  ? { ...entry, streaming: false }
+                  : entry,
+              ),
+            } : c
+          ));
         },
       });
     } catch (streamError) {
       setError(streamError.message || "Something went wrong.");
-      updateActive((conversation) => ({
-        ...conversation,
-        messages: conversation.messages.map((entry) =>
-          entry.id === assistantMessage.id
-            ? {
-                ...entry,
-                streaming: false,
-                content:
-                  entry.content ||
-                  "I could not reach the backend. Check API URL, backend server, and Groq key.",
-              }
-            : entry,
-        ),
-      }));
+      setConversations((current) => current.map((c) =>
+        c.id === targetConversation.id ? {
+          ...c,
+          messages: c.messages.map((entry) =>
+            entry.id === assistantMessage.id
+              ? {
+                  ...entry,
+                  streaming: false,
+                  content:
+                    entry.content ||
+                    "I could not reach the backend. Check API URL, backend server, and Groq key.",
+                }
+              : entry,
+          ),
+        } : c
+      ));
     } finally {
       setBusy(false);
     }
@@ -291,7 +403,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
       <section className="chat-shell">
         <header className="chat-topbar">
           <button
-            className="icon-button"
+            className="icon-button mobile-only"
             type="button"
             onClick={() => setSidebarOpen(true)}
             aria-label="Open sidebar"
@@ -324,21 +436,27 @@ export default function ChatWorkspace({ user, onSignOut }) {
           </div>
         </header>
 
-        <div className="messages-panel">
+        <div className="messages-panel" ref={messagesPanelRef} onScroll={handlePanelScroll}>
           {activeConversation?.messages.length ? (
-            activeConversation.messages.map((message) => (
-              <article key={message.id} className={`message ${message.role}`}>
-                <div className="message-avatar">
-                  {message.role === "assistant" ? <Bot size={18} /> : <User size={18} />}
-                </div>
-                <div className="message-bubble">
-                  <p>{message.content}</p>
-                  {message.streaming && (
-                    <span className="live-cursor" aria-label="Streaming response" />
-                  )}
-                </div>
-              </article>
-            ))
+            <div className="messages-inner">
+              {activeConversation.messages.map((message) => (
+                <article key={message.id} className={`message ${message.role}`}>
+                  <div className="message-avatar">
+                    {message.role === "assistant" ? <Bot size={18} /> : <User size={18} />}
+                  </div>
+                  <div className="message-bubble">
+                    {message.role === "assistant" ? (
+                      <AnimatedMessage
+                        content={message.content}
+                        streaming={!!message.streaming}
+                      />
+                    ) : (
+                      <p>{message.content}</p>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
           ) : (
             <section className="empty-chat">
               <div className="spark-card">
@@ -358,7 +476,6 @@ export default function ChatWorkspace({ user, onSignOut }) {
               </div>
             </section>
           )}
-          <div ref={messagesEndRef} />
         </div>
 
         {error && <div className="error-toast">{error}</div>}
@@ -373,6 +490,10 @@ export default function ChatWorkspace({ user, onSignOut }) {
           <textarea
             value={input}
             onChange={(event) => setInput(event.target.value)}
+            onInput={(e) => {
+              e.target.style.height = "auto";
+              e.target.style.height = Math.min(e.target.scrollHeight, 200) + "px";
+            }}
             onKeyDown={onComposerKeyDown}
             placeholder={`Ask the ${activeAgent?.name || "agent"}...`}
             rows={1}
