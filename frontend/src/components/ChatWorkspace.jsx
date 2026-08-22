@@ -8,11 +8,13 @@ import {
   Check,
   Copy,
   FileSearch,
+  Library,
   Loader2,
-  Menu,
   PanelLeft,
+  Paperclip,
   Plus,
   Scale,
+  Search,
   Send,
   Sparkles,
   User,
@@ -237,6 +239,8 @@ export default function ChatWorkspace({ user, onSignOut }) {
   const [profileOpen, setProfileOpen] = useState(false);
   const messagesPanelRef = useRef(null);
   const stickToBottomRef = useRef(true);
+  const heroTextareaRef = useRef(null);
+  const composerTextareaRef = useRef(null);
 
   useEffect(() => {
     fetchAgents()
@@ -262,6 +266,16 @@ export default function ChatWorkspace({ user, onSignOut }) {
   useEffect(() => {
     if (conversations.length) saveConversations(user.id, conversations);
   }, [conversations, user.id]);
+
+  // Close the sidebar overlay with Escape, from anywhere.
+  useEffect(() => {
+    if (!sidebarOpen) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setSidebarOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [sidebarOpen]);
 
   // Track whether the user is scrolled near the bottom, so we only auto-scroll
   // when they haven't intentionally scrolled up to read earlier messages.
@@ -304,6 +318,8 @@ export default function ChatWorkspace({ user, onSignOut }) {
     [agents, selectedAgent],
   );
 
+  const hasMessages = Boolean(activeConversation?.messages.length);
+
   function updateActive(mutator) {
     setConversations((current) =>
       current.map((conversation) =>
@@ -326,6 +342,15 @@ export default function ChatWorkspace({ user, onSignOut }) {
     setSelectedAgent(conversation.agentId);
     setSidebarOpen(false);
     stickToBottomRef.current = true;
+  }
+
+  function pickAgent(agentId) {
+    setSelectedAgent(agentId);
+    if (!hasMessages && activeConversation) {
+      updateActive((conversation) => ({ ...conversation, agentId }));
+    } else {
+      createNewChat(agentId);
+    }
   }
 
   async function sendMessage(text = input) {
@@ -447,8 +472,112 @@ export default function ChatWorkspace({ user, onSignOut }) {
     }
   }
 
+  function autoGrow(el) {
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = Math.min(el.scrollHeight, 200) + "px";
+  }
+
+  const initials = (user.user_metadata?.full_name || user.email || "?")
+    .trim()
+    .charAt(0)
+    .toUpperCase();
+
+  // Shared composer markup used both for the centered "hero" state (no
+  // messages yet) and the docked state at the bottom once a chat exists.
+  function renderComposer(textareaRef, variant) {
+    return (
+      <form
+        className={`composer composer-${variant}`}
+        onSubmit={(event) => {
+          event.preventDefault();
+          sendMessage();
+        }}
+      >
+        <textarea
+          ref={textareaRef}
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+          onInput={(e) => autoGrow(e.target)}
+          onKeyDown={onComposerKeyDown}
+          placeholder="Ask anything"
+          rows={1}
+        />
+        <div className="composer-toolbar">
+          <div className="composer-toolbar-left">
+            <button
+              type="button"
+              className="tool-chip icon-only"
+              aria-label="Attach a file"
+              title="Attach a file"
+            >
+              <Paperclip size={15} />
+            </button>
+            {agents.map((agent) => (
+              <button
+                key={agent.id}
+                type="button"
+                className={`tool-chip ${selectedAgent === agent.id ? "active" : ""}`}
+                onClick={() => pickAgent(agent.id)}
+              >
+                {agent.id === "rti" ? <FileSearch size={14} /> : <Scale size={14} />}
+                <span className="tool-chip-label">
+                  {agent.name.replace(" Agent", "").replace(" Rights", "")}
+                </span>
+              </button>
+            ))}
+          </div>
+          <button className="send-button" type="submit" disabled={busy || !input.trim()}>
+            {busy ? <Loader2 className="spin" size={18} /> : <Send size={18} />}
+          </button>
+        </div>
+      </form>
+    );
+  }
+
   return (
     <main className="workspace">
+      <nav className="icon-rail" aria-label="Primary">
+        <button
+          className="rail-btn"
+          type="button"
+          onClick={() => setSidebarOpen((open) => !open)}
+          aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
+          aria-expanded={sidebarOpen}
+        >
+          <PanelLeft size={19} />
+        </button>
+        <button
+          className="rail-btn accent"
+          type="button"
+          onClick={() => createNewChat()}
+          aria-label="New session"
+          title="New session"
+        >
+          <Plus size={19} />
+        </button>
+        <button
+          className="rail-btn"
+          type="button"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Search chats"
+          title="Search chats"
+        >
+          <Search size={18} />
+        </button>
+        <button
+          className="rail-btn"
+          type="button"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Saved chats"
+          title="Saved chats"
+        >
+          <Library size={18} />
+        </button>
+      </nav>
+
+      {sidebarOpen && <div className="scrim" onClick={() => setSidebarOpen(false)} />}
+
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-head">
           <a className="brand compact" href="/">
@@ -456,12 +585,12 @@ export default function ChatWorkspace({ user, onSignOut }) {
             <span>Civic AI</span>
           </a>
           <button
-            className="icon-button mobile-only"
+            className="icon-button"
             type="button"
             onClick={() => setSidebarOpen(false)}
             aria-label="Close sidebar"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
@@ -476,17 +605,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
               key={agent.id}
               className={selectedAgent === agent.id ? "agent-tab active" : "agent-tab"}
               type="button"
-              onClick={() => {
-                setSelectedAgent(agent.id);
-                if (activeConversation?.messages.length === 0) {
-                  updateActive((conversation) => ({
-                    ...conversation,
-                    agentId: agent.id,
-                  }));
-                } else {
-                  createNewChat(agent.id);
-                }
-              }}
+              onClick={() => pickAgent(agent.id)}
             >
               {agent.id === "rti" ? <FileSearch size={18} /> : <Scale size={18} />}
               <span>{agent.name}</span>
@@ -514,19 +633,8 @@ export default function ChatWorkspace({ user, onSignOut }) {
         </div>
       </aside>
 
-      {sidebarOpen && <div className="scrim" onClick={() => setSidebarOpen(false)} />}
-
       <section className="chat-shell">
         <header className="chat-topbar">
-          <button
-            className="icon-button mobile-only"
-            type="button"
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Open sidebar"
-          >
-            <Menu size={20} />
-          </button>
-
           <div className="agent-status">
             <span className="agent-icon">
               {activeAgent?.id === "rti" ? <FileSearch size={19} /> : <Scale size={19} />}
@@ -538,22 +646,19 @@ export default function ChatWorkspace({ user, onSignOut }) {
           </div>
 
           <div className="topbar-actions">
-            <button className="icon-button desktop-only" type="button" aria-label="Layout">
-              <PanelLeft size={20} />
-            </button>
             <button
               className="profile-chip"
               type="button"
               onClick={() => setProfileOpen(true)}
+              aria-label="Open profile"
             >
-              <User size={17} />
-              <span>{user.user_metadata?.full_name || user.email}</span>
+              <span className="profile-avatar-sm">{initials}</span>
             </button>
           </div>
         </header>
 
         <div className="messages-panel" ref={messagesPanelRef} onScroll={handlePanelScroll}>
-          {activeConversation?.messages.length ? (
+          {hasMessages ? (
             <div className="messages-inner">
               {activeConversation.messages.map((message) => (
                 <article key={message.id} className={`message ${message.role}`}>
@@ -576,14 +681,15 @@ export default function ChatWorkspace({ user, onSignOut }) {
           ) : (
             <section className="empty-chat">
               <div className="spark-card">
-                <Sparkles size={30} />
+                <Sparkles size={26} />
               </div>
-              <h1>Start a focused civic session</h1>
-              <p>
-                Choose a prompt or ask directly. Your session will be saved on
-                this device under your profile.
-              </p>
-              <div className="prompt-grid">
+              <h1 className="gradient-text">What can I help with?</h1>
+
+              <div className="hero-composer">
+                {renderComposer(heroTextareaRef, "hero")}
+              </div>
+
+              <div className="prompt-row">
                 {(quickPrompts[selectedAgent] || quickPrompts.rti).map((prompt) => (
                   <button key={prompt} type="button" onClick={() => sendMessage(prompt)}>
                     {prompt}
@@ -596,28 +702,9 @@ export default function ChatWorkspace({ user, onSignOut }) {
 
         {error && <div className="error-toast">{error}</div>}
 
-        <form
-          className="composer"
-          onSubmit={(event) => {
-            event.preventDefault();
-            sendMessage();
-          }}
-        >
-          <textarea
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            onInput={(e) => {
-              e.target.style.height = "auto";
-              e.target.style.height = Math.min(e.target.scrollHeight, 200) + "px";
-            }}
-            onKeyDown={onComposerKeyDown}
-            placeholder={`Ask the ${activeAgent?.name || "agent"}...`}
-            rows={1}
-          />
-          <button className="send-button" type="submit" disabled={busy || !input.trim()}>
-            {busy ? <Loader2 className="spin" size={20} /> : <Send size={20} />}
-          </button>
-        </form>
+        {hasMessages && renderComposer(composerTextareaRef, "dock")}
+
+        {hasMessages && <p className="disclaimer">AI can make mistakes. Please double-check responses.</p>}
       </section>
 
       {profileOpen && (

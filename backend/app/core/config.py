@@ -23,7 +23,10 @@ class Settings(BaseSettings):
     # CORS
     frontend_url: str = "http://localhost:5173"
     cors_origins: str = Field(
-        default="http://localhost:5173,http://localhost:3000",
+        default=(
+            "http://localhost:5173,http://127.0.0.1:5173,"
+            "http://localhost:3000,http://127.0.0.1:3000"
+        ),
         description="Comma-separated list of allowed frontend origins.",
     )
 
