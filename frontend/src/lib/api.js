@@ -7,6 +7,16 @@ export async function fetchAgents() {
   return response.json();
 }
 
+function blocksToMarkdown(blocks = []) {
+  return blocks
+    .map((block) => {
+      const title = block.title ? `### ${block.title}\n\n` : "";
+      return `${title}${block.content || ""}`.trim();
+    })
+    .filter(Boolean)
+    .join("\n\n");
+}
+
 export async function streamChat({
   agentId,
   message,
@@ -62,6 +72,9 @@ export async function streamChat({
         onToken?.(accumulatedText);
       }
       if (payload.type === "token") {
+        if (accumulatedText === "_Thinking..._\n\n") {
+          accumulatedText = "";
+        }
         accumulatedText += payload.token || "";
         onToken?.(accumulatedText);
       }
@@ -75,7 +88,19 @@ export async function streamChat({
         accumulatedText += `${payload.block.content}\n\n`;
         onToken?.(accumulatedText); // Passing full accumulated text
       }
-      if (payload.type === "done") onDone?.(payload);
+      if (payload.type === "done") {
+        const hasStructuredResponse =
+          typeof payload.response === "string" &&
+          payload.response.toLowerCase().includes("<structured_response");
+        const formattedResponse = hasStructuredResponse && payload.structured?.length
+          ? blocksToMarkdown(payload.structured)
+          : payload.response;
+        if (formattedResponse) {
+          accumulatedText = formattedResponse;
+          onToken?.(accumulatedText);
+        }
+        onDone?.(payload);
+      }
       if (payload.type === "error") throw new Error(payload.detail);
     }
   }

@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {
   Bot,
+  Check,
+  Copy,
   FileSearch,
   Loader2,
   Menu,
@@ -49,6 +55,116 @@ const quickPrompts = {
     "Help me write to an e-commerce seller about refund delay.",
   ],
 };
+
+function CodeBlock({ language, code }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    });
+  }, [code]);
+
+  return (
+    <div className="code-block">
+      <div className="code-header">
+        <span className="code-lang">
+          <span className="code-lang-dot" />
+          {language.toUpperCase()}
+        </span>
+        <button
+          className={`copy-btn ${copied ? "copied" : ""}`}
+          type="button"
+          onClick={handleCopy}
+        >
+          {copied ? <Check size={13} /> : <Copy size={13} />}
+          {copied ? "Copied" : "Copy"}
+        </button>
+      </div>
+      <SyntaxHighlighter
+        language={language}
+        style={oneDark}
+        customStyle={{
+          margin: 0,
+          borderRadius: "0 0 8px 8px",
+          fontSize: "0.88rem",
+          lineHeight: "1.6",
+          padding: "16px",
+          background: "#1e1e2e",
+        }}
+        showLineNumbers={false}
+      >
+        {code}
+      </SyntaxHighlighter>
+    </div>
+  );
+}
+
+function structuredBlocksToMarkdown(blocks = []) {
+  return blocks
+    .map((block) => {
+      const title = block.title ? `### ${block.title}\n\n` : "";
+      return `${title}${block.content || ""}`.trim();
+    })
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+function normalizeAssistantMarkdown(content) {
+  if (!content?.includes("<structured_response")) return content || "";
+
+  const match = content.match(
+    /<structured_response\s*>([\s\S]*?)<\/structured_response>/i,
+  );
+  const candidate = match?.[1]?.trim();
+  if (!candidate) return content;
+
+  try {
+    const parsed = JSON.parse(candidate);
+    if (Array.isArray(parsed?.blocks)) {
+      return structuredBlocksToMarkdown(parsed.blocks);
+    }
+  } catch {
+    return content;
+  }
+
+  return content;
+}
+
+function MarkdownMessage({ content }) {
+  const markdown = normalizeAssistantMarkdown(content);
+
+  return (
+    <div className="markdown-message">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          pre({ children }) {
+            return <>{children}</>;
+          },
+          code({ className, children, ...props }) {
+            const match = /language-(\w+)/.exec(className || "");
+            const code = String(children).replace(/\n$/, "");
+            const isBlock = Boolean(match) || code.includes("\n");
+
+            if (isBlock) {
+              return <CodeBlock language={match?.[1] || "text"} code={code} />;
+            }
+
+            return (
+              <code className="inline-code" {...props}>
+                {children}
+              </code>
+            );
+          },
+        }}
+      >
+        {markdown}
+      </ReactMarkdown>
+    </div>
+  );
+}
 
 // Reveals `content` word-by-word regardless of how big each incoming chunk is.
 // This keeps the "typing" feel even if the backend sends large token bursts
@@ -102,10 +218,10 @@ function AnimatedMessage({ content, streaming }) {
   }, [streaming, content]);
 
   return (
-    <p>
-      {displayed}
+    <>
+      <MarkdownMessage content={displayed} />
       {streaming && <span className="live-cursor" aria-label="Streaming response" />}
-    </p>
+    </>
   );
 }
 
