@@ -1,0 +1,43 @@
+# React / Node
+node_modules/
+frontend/node_modules/
+
+# Build outputs
+build/
+dist/
+frontend/build/
+frontend/dist/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Vite specific (agar Vite use kar rahe ho)
+.vite/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Misc
+*.local

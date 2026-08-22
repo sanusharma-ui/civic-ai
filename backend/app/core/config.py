@@ -1,0 +1,72 @@
+from functools import lru_cache
+
+from pydantic import Field, computed_field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    """
+    Central application configuration.
+
+    All secrets and environment-specific values should come
+    from environment variables / .env rather than being hardcoded.
+    """
+
+    # Application
+    app_name: str = "Civic AI"
+    app_version: str = "0.1.0"
+    environment: str = "development"
+
+    # API
+    api_prefix: str = "/api"
+
+    # CORS
+    frontend_url: str = "http://localhost:5173"
+    cors_origins: str = Field(
+        default="http://localhost:5173,http://localhost:3000",
+        description="Comma-separated list of allowed frontend origins.",
+    )
+
+    # Groq
+    groq_api_key: str = ""
+    groq_model: str = "llama-3.3-70b-versatile"
+    groq_temperature: float = 0.2
+    groq_max_tokens: int = 2048
+    # JWT Authentication
+    jwt_secret_key: str = ""
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: int = 60
+    @computed_field
+    @property
+    def allowed_origins(self) -> list[str]:
+        origins = [
+            origin.strip()
+            for origin in self.cors_origins.split(",")
+            if origin.strip()
+        ]
+
+        if self.frontend_url and self.frontend_url not in origins:
+            origins.append(self.frontend_url)
+
+        return origins
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore",
+    )
+
+
+@lru_cache
+def get_settings() -> Settings:
+    """
+    Returns a cached Settings instance.
+
+    Using a cached settings object prevents repeatedly
+    reading/parsing the .env file during application runtime.
+    """
+    return Settings()
+
+
+settings = get_settings()

@@ -1,0 +1,54 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.env.*
+venv/
+env/
+ENV/
+.venv/
+
+# Virtualenv / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# FastAPI / Uvicorn
+*.log
+*.pid
+
+# Alembic
+# (keep versions tracked, ignore local db files instead)
+*.sqlite3
+*.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node (agar frontend bhi same repo me hai)
+node_modules/
+dist/
+.next/
