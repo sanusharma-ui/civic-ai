@@ -29,9 +29,12 @@ class Settings(BaseSettings):
 
     # Groq
     groq_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
     groq_temperature: float = 0.2
-    groq_max_tokens: int = 2048
+    groq_max_tokens: int = 4096   # agents need space for structured output
+
+    # Agentic loop
+    agent_max_iterations: int = 5  # max tool-call rounds before forcing final answer
     # JWT Authentication
     jwt_secret_key: str = ""
     jwt_algorithm: str = "HS256"

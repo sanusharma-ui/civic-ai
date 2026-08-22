@@ -1,9 +1,19 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.router import api_router
 from app.core.config import settings
+from app.core.database import init_db
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Initialise DB on startup; clean up on shutdown."""
+    await init_db()
+    yield
 
 
 app = FastAPI(
@@ -13,6 +23,7 @@ app = FastAPI(
         "AI-powered civic and legal empowerment platform "
         "with specialized RTI and Consumer agents."
     ),
+    lifespan=lifespan,
 )
 
 app.add_middleware(

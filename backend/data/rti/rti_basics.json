@@ -1,0 +1,74 @@
+[
+  {
+    "title": "What is RTI (Right to Information)?",
+    "content": "The Right to Information Act, 2005 (RTI Act) gives every citizen of India the right to request information from any public authority. A public authority must provide information within 30 days of receiving an RTI application (48 hours for matters involving life or liberty). The Act promotes transparency and accountability in government.",
+    "section": "basics",
+    "tags": ["rti", "definition", "act 2005"]
+  },
+  {
+    "title": "Who can file an RTI application?",
+    "content": "Any citizen of India can file an RTI application. There is no requirement to explain why you need the information. You do not need a lawyer. NRIs (Non-Resident Indians) cannot file RTI applications as the Act is limited to citizens residing in India.",
+    "section": "eligibility",
+    "tags": ["who can file", "citizen", "eligibility"]
+  },
+  {
+    "title": "RTI Application Fee",
+    "content": "The application fee for filing an RTI with a Central Government department is ₹10. For state government departments, the fee varies by state (usually ₹10–₹50). Payment can be made by: Indian Postal Order (IPO), Demand Draft, Banker's Cheque, or Cash at the PIO's counter. BPL (Below Poverty Line) cardholders are exempt from all fees. Online RTIs filed via the RTI Online Portal (rtionline.gov.in) can pay by net banking, debit/credit card, or UPI.",
+    "section": "fees",
+    "tags": ["fee", "payment", "₹10", "BPL", "IPO"]
+  },
+  {
+    "title": "RTI Timeline and Deadlines",
+    "content": "1. PIO must respond within 30 days of receiving the application.\n2. For matters involving life or liberty: 48 hours.\n3. If the PIO transfers to another department: additional 5 days (total 35 days).\n4. First Appeal: must be filed within 30 days of PIO's response (or 30 days after the deadline passes without response).\n5. First Appellate Authority must respond within 30 days (max 45 days with reasons).\n6. Second Appeal to CIC/SIC: must be filed within 90 days of the First Appellate Authority's order.",
+    "section": "timelines",
+    "tags": ["30 days", "48 hours", "deadline", "timeline", "appeal"]
+  },
+  {
+    "title": "Who is the PIO (Public Information Officer)?",
+    "content": "Every public authority under the RTI Act must designate a Public Information Officer (PIO). The PIO is the designated officer responsible for receiving RTI applications, collecting information from departments, and providing a response. For central government departments, you can find PIOs at the department's official website or by contacting the department directly. Each department also has an Assistant PIO (APIO) at district level to receive applications.",
+    "section": "pio",
+    "tags": ["PIO", "public information officer", "CPIO", "APIO", "contact"]
+  },
+  {
+    "title": "How to write an RTI Application",
+    "content": "An RTI application must include:\n1. Name of the applicant\n2. Complete address for correspondence\n3. Phone/email (optional)\n4. Name of the public authority to which it is addressed\n5. A clear description of the information sought\n6. Proof of fee payment\n\nFormat: The application can be written on plain paper in English, Hindi, or the official language of the area. There is no prescribed format — it can be handwritten or typed.",
+    "section": "format",
+    "tags": ["how to write", "format", "application", "template"]
+  },
+  {
+    "title": "RTI First Appeal",
+    "content": "If the PIO does not respond within the stipulated time, or if the applicant is dissatisfied with the response, they can file a First Appeal with the First Appellate Authority (FAA) — an officer senior to the PIO in the same organisation.\n\nDeadline: Within 30 days of the PIO's response (or 30 days after the deadline if no response was given).\nFee: No fee for filing an appeal.\nResponse time: FAA must decide within 30 days (extendable to 45 days with written reasons).",
+    "section": "appeals",
+    "tags": ["first appeal", "FAA", "appellate authority", "no response"]
+  },
+  {
+    "title": "RTI Second Appeal to CIC / SIC",
+    "content": "If the First Appeal is unsatisfactory or the FAA does not respond, the applicant can file a Second Appeal with:\n- Central Information Commission (CIC) — for Central Government departments\n- State Information Commission (SIC) — for State Government departments\n\nDeadline: Within 90 days of the FAA's order (or its deadline passing).\nOnline filing: CIC accepts online complaints/appeals at cic.gov.in\nPenalty: The CIC/SIC can impose a penalty of ₹250/day on the PIO (max ₹25,000) for unjustified denial or delay.",
+    "section": "appeals",
+    "tags": ["CIC", "SIC", "second appeal", "penalty", "₹25000"]
+  },
+  {
+    "title": "RTI Exemptions — What information cannot be given",
+    "content": "Section 8 of the RTI Act exempts the following from disclosure:\n1. Information affecting sovereignty and integrity of India\n2. Information expressly forbidden by court or tribunal\n3. Information that would breach Parliamentary privilege\n4. Trade secrets, commercial confidence affecting third-party interests\n5. Information received in fiduciary capacity\n6. Information endangering life or physical safety of any person\n7. Cabinet papers, Council of Ministers discussions (until the decision is made)\n8. Personal information with no public interest\n\nNote: Even exempt information can be disclosed if the public interest outweighs the harm.",
+    "section": "exemptions",
+    "tags": ["exemption", "section 8", "denied", "cannot disclose"]
+  },
+  {
+    "title": "RTI Online Portal — Central Government",
+    "content": "The Indian Government operates an online RTI portal for Central Government departments:\n- Website: https://rtionline.gov.in\n- You can file RTI applications, pay fees online, track status, and file first appeals.\n- Available for: All Ministries/Departments of the Central Government\n- States have their own portals. For example: Maharashtra (mahaonline.gov.in/RTI), Delhi (rti.delhi.gov.in)",
+    "section": "online",
+    "tags": ["online", "portal", "rtionline.gov.in", "track", "status"]
+  },
+  {
+    "title": "Common RTI Use Cases",
+    "content": "Citizens commonly use RTI for:\n1. Status of pending applications (ration card, passport, pension, PF withdrawal)\n2. Copies of government decisions or orders affecting them\n3. Government scheme eligibility and disbursement details\n4. Road/infrastructure project status\n5. Municipal records (building permits, property tax)\n6. Police records (FIR copies, action taken on complaints)\n7. Educational institution records (admission, scholarship)\n8. Tender and procurement details",
+    "section": "use_cases",
+    "tags": ["use cases", "examples", "ration card", "passport", "PF", "pension"]
+  },
+  {
+    "title": "RTI for Provident Fund (PF) Withdrawal",
+    "content": "To seek information about PF withdrawal status:\n- Public Authority: EPFO (Employees' Provident Fund Organisation)\n- PIO: Regional PF Commissioner of the relevant EPFO Regional Office\n- Information you can request: Current status of claim, reason for delay, name of officer processing claim, expected date of settlement.\n- EPFO is a Central Government body, so the fee is ₹10 (IPO/online payment).\n- Online: file via rtionline.gov.in selecting 'Ministry of Labour and Employment'.",
+    "section": "use_cases",
+    "tags": ["PF", "provident fund", "EPFO", "withdrawal", "EPF"]
+  }
+]

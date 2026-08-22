@@ -1,6 +1,48 @@
-from typing import Literal
+"""Pydantic schemas for the chat API."""
+
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
+
+
+# ---------------------------------------------------------------------------
+# Structured response blocks
+# ---------------------------------------------------------------------------
+
+
+class StructuredBlock(BaseModel):
+    """
+    A single visual block in the agent's canvas response.
+
+    The frontend renders each block type differently:
+    - ``header``        → Bold title card at the top
+    - ``section``       → Collapsible information section
+    - ``steps``         → Numbered action-step list
+    - ``draft``         → Copyable document panel (RTI / complaint letter)
+    - ``disclaimer``    → Warning / advisory note
+    - ``clarification`` → Agent asking the user a question
+    - ``info``          → Neutral information callout
+    - ``warning``       → Highlighted warning callout
+    """
+
+    type: Literal[
+        "header",
+        "section",
+        "steps",
+        "draft",
+        "disclaimer",
+        "clarification",
+        "info",
+        "warning",
+    ]
+    title: str = ""
+    content: str
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+# ---------------------------------------------------------------------------
+# Chat request / response
+# ---------------------------------------------------------------------------
 
 
 class ChatMessage(BaseModel):
@@ -15,21 +57,46 @@ class ChatRequest(BaseModel):
     history: list[ChatMessage] = Field(default_factory=list)
 
 
+class AgentMeta(BaseModel):
+    id: str
+    name: str
+    version: str
+
+
 class ChatResponse(BaseModel):
     conversation_id: str
-    agent: dict[str, str]
-    response: str
+    agent: AgentMeta
+    response: str                       # raw markdown fallback
+    structured: list[StructuredBlock]   # canvas blocks (primary)
     model: str
     usage: dict | None = None
     retrieved_context: list[dict] = Field(default_factory=list)
 
 
+# ---------------------------------------------------------------------------
+# SSE stream events
+# ---------------------------------------------------------------------------
+
+
 class StreamEvent(BaseModel):
-    type: Literal["start", "token", "done", "error"]
+    """
+    Server-sent event envelope.
+
+    Types:
+    - ``start``       → Metadata before streaming begins
+    - ``token``       → Incremental text token
+    - ``block``       → Complete structured block (emitted after streaming)
+    - ``done``        → Final summary + full response
+    - ``error``       → Error detail
+    """
+
+    type: Literal["start", "token", "block", "done", "error"]
     conversation_id: str | None = None
     token: str | None = None
+    block: StructuredBlock | None = None
     response: str | None = None
+    structured: list[StructuredBlock] | None = None
     detail: str | None = None
-    agent: dict[str, str] | None = None
+    agent: AgentMeta | None = None
     model: str | None = None
     retrieved_context: list[dict] | None = None

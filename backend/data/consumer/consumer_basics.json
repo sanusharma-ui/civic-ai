@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Consumer Protection Act 2019 — Overview",
+    "content": "The Consumer Protection Act, 2019 (CPA 2019) replaced the older 1986 Act and significantly strengthened consumer rights in India. Key additions: e-commerce regulation, product liability, mediation, and a Central Consumer Protection Authority (CCPA). The Act covers goods and services purchased for personal use. Business purchases for resale are NOT covered.",
+    "section": "basics",
+    "tags": ["consumer protection act", "2019", "CPA", "overview"]
+  },
+  {
+    "title": "Six Consumer Rights in India",
+    "content": "Under the CPA 2019, every consumer has these rights:\n1. Right to Safety — protection against hazardous goods/services\n2. Right to Information — know quality, quantity, potency, price of goods/services\n3. Right to Choose — access to variety of goods at competitive prices\n4. Right to be Heard — grievances must be considered\n5. Right to Redressal — seek remedy for unfair trade practices, defective goods, deficient services\n6. Right to Consumer Education — be informed about rights",
+    "section": "rights",
+    "tags": ["rights", "six rights", "safety", "information", "choose", "redressal"]
+  },
+  {
+    "title": "Consumer Commission Jurisdiction — Which court to approach",
+    "content": "Consumer disputes are heard by a three-tier quasi-judicial system:\n\n1. District Consumer Disputes Redressal Commission (DCDRC)\n   - Claims up to ₹1 crore\n   - File in the district where you live OR where the seller has an office\n\n2. State Consumer Disputes Redressal Commission (SCDRC)\n   - Claims between ₹1 crore and ₹10 crore\n   - File in the state capital\n\n3. National Consumer Disputes Redressal Commission (NCDRC)\n   - Claims above ₹10 crore\n   - Located in New Delhi\n   - Website: ncdrc.nic.in",
+    "section": "jurisdiction",
+    "tags": ["DCDRC", "SCDRC", "NCDRC", "which court", "jurisdiction", "crore"]
+  },
+  {
+    "title": "e-Daakhil — Online Consumer Complaint Filing",
+    "content": "e-Daakhil is the official online portal for filing consumer complaints in India.\n- Website: https://edaakhil.nic.in\n- Available for: District, State, and National Consumer Commissions\n- Steps: Register → Fill complaint form → Upload documents → Pay fee → Track status\n- Filing fee: Varies by claim amount (₹200 for claims up to ₹5 lakh; up to ₹5,000 for claims above ₹1 crore)\n- No need to visit the commission office in person for filing.",
+    "section": "filing",
+    "tags": ["e-daakhil", "online", "portal", "file complaint", "edaakhil.nic.in"]
+  },
+  {
+    "title": "Consumer Complaint — What you need",
+    "content": "Before filing a consumer complaint, gather:\n1. Proof of purchase: bill, invoice, receipt, or order confirmation\n2. Evidence of defect/deficiency: photos, videos, test reports\n3. Proof of communication: emails, WhatsApp chats, letters to seller/brand\n4. Details: purchase date, product/service name, seller name and address, amount paid\n5. Response from seller (or proof of non-response)\n6. Details of physical/financial loss suffered\n\nNote: Always send a legal notice to the seller before filing, giving them 15–30 days to resolve.",
+    "section": "filing",
+    "tags": ["documents", "proof", "evidence", "what to collect", "legal notice"]
+  },
+  {
+    "title": "Consumer Complaint Time Limit",
+    "content": "Under the CPA 2019, a consumer complaint must be filed within 2 years from the date the cause of action arises (i.e., when the defect/deficiency occurred). The commission can condone delay if the complainant shows sufficient cause. Do not wait too long — file as soon as reasonable steps to resolve privately have failed.",
+    "section": "timelines",
+    "tags": ["time limit", "2 years", "limitation period", "deadline"]
+  },
+  {
+    "title": "Defective Product — Remedies available",
+    "content": "If you have a defective product, you can claim:\n1. Replacement of the product\n2. Refund of the price paid\n3. Repair of the defect\n4. Compensation for loss/injury caused by the defect\n5. Removal of deficiency in service\n\nUnder CPA 2019, product liability provisions also allow claims against the manufacturer, service provider, and seller simultaneously.",
+    "section": "remedies",
+    "tags": ["defective product", "replacement", "refund", "repair", "compensation", "remedies"]
+  },
+  {
+    "title": "Online Purchase Consumer Complaint",
+    "content": "For complaints about online purchases (Flipkart, Amazon, Meesho, etc.):\n1. First: Use the platform's return/refund process and raise a formal complaint on the platform.\n2. If unresolved: Email the brand/seller directly with a legal notice giving 15 days to resolve.\n3. If still unresolved: File on e-Daakhil against both the seller AND the e-commerce platform.\n\nKey point: Under CPA 2019, e-commerce platforms are treated as sellers if they fulfill the order or if the seller is on their platform. The platform can be held liable for deficient service.",
+    "section": "ecommerce",
+    "tags": ["online shopping", "flipkart", "amazon", "e-commerce", "refund", "return"]
+  },
+  {
+    "title": "National Consumer Helpline",
+    "content": "The National Consumer Helpline (NCH) is a free government helpline for consumer grievances.\n- Toll-free number: 1800-11-4000 (Mon–Sat, 8 AM–8 PM)\n- SMS: 8800001915\n- Website: consumerhelpline.gov.in\n- You can register a complaint and track its status online.\n- NCH works with companies (\"Convergence Partners\") to resolve complaints informally before they escalate to consumer courts.\n- Available in multiple languages.",
+    "section": "helplines",
+    "tags": ["NCH", "national consumer helpline", "1800-11-4000", "free helpline", "toll free"]
+  },
+  {
+    "title": "Unfair Trade Practice — What counts",
+    "content": "Unfair trade practices under CPA 2019 include:\n1. False advertising or misleading claims about a product\n2. Offering gifts/prizes with intent to deceive\n3. Selling goods not conforming to safety standards\n4. Hoarding or destruction of goods to raise prices\n5. Spurious goods sold as genuine brand products\n6. Not issuing receipts for purchases above ₹100\n\nConsumers can complain to the CCPA (Central Consumer Protection Authority) for unfair trade practices affecting a class of consumers.",
+    "section": "unfair_trade",
+    "tags": ["unfair trade", "misleading", "false advertising", "CCPA", "spurious"]
+  },
+  {
+    "title": "Consumer Complaint against Service Providers",
+    "content": "Deficiency in service covers:\n- Telecom (call drops, billing issues, internet speed)\n- Banking (wrongful charges, loan grievances, ATM failures)\n- Insurance (claim rejection, delays)\n- Airlines (flight cancellation, baggage loss)\n- Hospitals (medical negligence)\n- Real estate (builder delays, RERA violations)\n- Restaurants and hospitality\n\nFor banking: Also approach the Banking Ombudsman (RBI) at cms.rbi.org.in — free, fast, and does not bar you from consumer court later.",
+    "section": "services",
+    "tags": ["service deficiency", "telecom", "banking", "insurance", "airline", "hospital", "real estate", "ombudsman"]
+  },
+  {
+    "title": "How to write a Consumer Complaint / Legal Notice",
+    "content": "A legal notice / consumer complaint should include:\n1. Your name, address, contact details\n2. Opposite party name and address (seller / manufacturer / service provider)\n3. Date of purchase and amount paid\n4. Nature of defect or deficiency (describe clearly)\n5. What loss you suffered (money, health, time)\n6. What you are demanding (refund / replacement / compensation)\n7. A deadline for response (15–30 days)\n8. Statement that you will proceed to consumer court if unresolved\n\nSend via registered post (keep the receipt) and/or email with read receipt.",
+    "section": "format",
+    "tags": ["legal notice", "complaint format", "how to write", "template", "demand letter"]
+  }
+]
