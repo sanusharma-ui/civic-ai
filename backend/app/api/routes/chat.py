@@ -22,7 +22,7 @@ router = APIRouter()
 # ---------------------------------------------------------------------------
 
 
-def _history_for_llm(
+async def _history_for_llm(
     conversation_id: str | None,
     request: ChatRequest,
 ) -> list[dict[str, str]]:
@@ -31,7 +31,7 @@ def _history_for_llm(
     if not conversation_id:
         return []
     try:
-        conversation = chat_service.get_conversation(conversation_id)
+        conversation = await chat_service.get_conversation(conversation_id)
         return [
             {"role": m.role, "content": m.content}
             for m in conversation.messages[-12:]
@@ -55,11 +55,11 @@ async def chat(payload: ChatRequest) -> ChatResponse:
     """
     try:
         agent_cfg = get_agent(payload.agent_id)
-        conversation = chat_service.get_or_create(
+        conversation = await chat_service.get_or_create(
             agent_id=payload.agent_id,
             conversation_id=payload.conversation_id,
         )
-        history = _history_for_llm(conversation.id, payload)
+        history = await _history_for_llm(conversation.id, payload)
 
         result = await agent_service.respond(
             agent_id=payload.agent_id,
@@ -67,8 +67,8 @@ async def chat(payload: ChatRequest) -> ChatResponse:
             conversation_history=history,
         )
 
-        conversation.add_message("user", payload.message)
-        conversation.add_message("assistant", result["response"])
+        await chat_service.add_message(conversation.id, "user", payload.message)
+        await chat_service.add_message(conversation.id, "assistant", result["response"])
 
         agent_meta = AgentMeta(
             id=result["agent"]["id"],
@@ -113,11 +113,11 @@ async def stream_chat(payload: ChatRequest) -> StreamingResponse:
         conversation = None
         try:
             get_agent(payload.agent_id)  # validate early
-            conversation = chat_service.get_or_create(
+            conversation = await chat_service.get_or_create(
                 agent_id=payload.agent_id,
                 conversation_id=payload.conversation_id,
             )
-            history = _history_for_llm(conversation.id, payload)
+            history = await _history_for_llm(conversation.id, payload)
 
             # Emit start event
             yield _sse(
@@ -146,8 +146,8 @@ async def stream_chat(payload: ChatRequest) -> StreamingResponse:
                 elif event_type == "done":
                     full_response = event.get("response", "")
                     # Persist to conversation history
-                    conversation.add_message("user", payload.message)
-                    conversation.add_message("assistant", full_response)
+                    await chat_service.add_message(conversation.id, "user", payload.message)
+                    await chat_service.add_message(conversation.id, "assistant", full_response)
                     yield _sse(
                         {
                             **event,

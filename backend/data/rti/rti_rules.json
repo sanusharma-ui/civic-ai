@@ -1,0 +1,80 @@
+[
+  {
+    "title": "RTI Application — Required Format and Content",
+    "content": "An RTI application should include:\n1. Applicant's full name and complete postal/email address\n2. Name of the public authority and department\n3. Clearly worded, numbered questions (specific, not vague)\n4. Period/timeframe for which information is sought (if applicable)\n5. Preferred format of information (photocopy, inspection, CD, etc.)\n6. Fee payment proof (postal order/DD/online payment receipt, or BPL certificate for fee exemption)\n7. Date and signature (for physical applications)\nNo specific government-prescribed form is mandatory in most states — a plain letter addressed to the PIO works.",
+    "section": "rules",
+    "tags": ["application format", "how to write RTI", "required details", "template"]
+  },
+  {
+    "title": "Where to Address the RTI Application",
+    "content": "Address the application to: 'The Public Information Officer' followed by the name of the department/office and its address. If you don't know the exact PIO's name, you can still write 'The Public Information Officer' generically — the office is legally required to route it correctly. If sent to the wrong public authority, Section 6(3) requires transfer to the correct authority within 5 days.",
+    "section": "rules",
+    "tags": ["addressing RTI", "public information officer", "where to send"]
+  },
+  {
+    "title": "Modes of Filing an RTI Application",
+    "content": "RTI can be filed in three ways:\n1. ONLINE: via rtionline.gov.in (central authorities) or state-specific portals\n2. BY POST: physical letter with postal order/DD/court fee stamp attached, sent by registered post (keep the receipt as proof)\n3. IN PERSON: hand-delivered at the office of the PIO, with a receiving acknowledgment obtained on your copy\nOral requests are only accepted if the PIO provides assistance to a person who cannot write.",
+    "section": "rules",
+    "tags": ["modes of filing", "online", "post", "in person", "how to submit"]
+  },
+  {
+    "title": "RTI Fee Structure — Central Government",
+    "content": "For central government public authorities:\n- Application fee: ₹10\n- Additional fee for information: ₹2 per page (A4/A3 size) for photocopies\n- ₹50 per diskette/floppy for larger digital files\n- Priced publications: at actual cost\n- Inspection of records: free for first hour, ₹5 for each subsequent hour\n- BPL cardholders: NO FEE for application or additional charges (attach BPL certificate copy)\nPayment modes: Indian Postal Order (IPO), Demand Draft, Banker's Cheque in favour of the Accounts Officer of the public authority, or online payment via rtionline.gov.in.",
+    "section": "rules",
+    "tags": ["fee structure", "central government fee", "₹2 per page", "payment modes"]
+  },
+  {
+    "title": "RTI Fee Structure — State Variations",
+    "content": "State government RTI fees vary: most states charge ₹10 for the application (similar to central), though a few charge up to ₹20–₹50. Additional per-page photocopy charges also vary (typically ₹2–₹5 per page). Always check the specific state's RTI Rules notification or state RTI portal for the exact current fee before filing, since states periodically revise these amounts.",
+    "section": "rules",
+    "tags": ["state fee", "state RTI rules", "varies by state"]
+  },
+  {
+    "title": "Filing Timeline — Step by Step",
+    "content": "1. Day 0: Submit RTI application with fee to the PIO\n2. Day 0–30: PIO must respond (48 hours for life/liberty matters)\n3. If no response or unsatisfactory response by Day 30: File FIRST APPEAL within 30 days to the Appellate Authority\n4. Day 30–60/75: Appellate Authority must decide (30 days, extendable to 45 days with recorded reasons)\n5. If still unsatisfied: File SECOND APPEAL within 90 days to CIC/SIC\n6. CIC/SIC hears the matter and issues a binding order, which may include directing disclosure and/or imposing a penalty on the PIO",
+    "section": "rules",
+    "tags": ["timeline", "step by step", "process flow", "deadlines summary"]
+  },
+  {
+    "title": "First Appeal — Filing Rules",
+    "content": "- Filed within 30 days of the PIO's response (or of the 30-day deadline lapsing)\n- Addressed to the First Appellate Authority in the same public authority (usually senior to the PIO)\n- No prescribed fee in most jurisdictions (a few states charge a nominal fee — check locally)\n- Must include: copy of original RTI application, PIO's reply (or proof none was received), and grounds of dissatisfaction\n- Appellate Authority may condone delay beyond 30 days if satisfied with the reason given",
+    "section": "rules",
+    "tags": ["first appeal rules", "appeal filing", "appellate authority process"]
+  },
+  {
+    "title": "Second Appeal — Filing Rules",
+    "content": "- Filed within 90 days of the First Appellate Authority's order (or of the deadline for that order lapsing)\n- Filed with the Central Information Commission (cic.gov.in) for central authorities, or the relevant State Information Commission for state authorities\n- Must include: original RTI, PIO reply, first appeal copy, and first appellate order (or proof of non-decision)\n- CIC/SIC can condone delay for sufficient cause\n- The Commission's decision is binding and can only be challenged via writ petition in a High Court",
+    "section": "rules",
+    "tags": ["second appeal rules", "CIC filing", "SIC filing", "cic.gov.in"]
+  },
+  {
+    "title": "Penalty Proceedings Against PIOs",
+    "content": "When hearing an appeal or complaint, the CIC/SIC can, on its own or on request, examine whether the PIO acted without reasonable cause. If found guilty of unreasonable delay, malafide denial, or providing false/misleading information, the Commission can impose a penalty of ₹250/day of delay (capped at ₹25,000) AND recommend disciplinary action against the PIO to the concerned department under applicable service rules. The penalty is paid by the PIO personally, not the department.",
+    "section": "rules",
+    "tags": ["penalty proceedings", "PIO penalty", "disciplinary action", "who pays fine"]
+  },
+  {
+    "title": "Third Party Consultation Procedure",
+    "content": "When requested information relates to a third party who has designated it as confidential, the PIO must, within 5 days of receiving the RTI, issue a notice to the third party inviting their written/oral objection. The third party has 10 days to respond. The PIO then decides on disclosure within 40 days (extended from the normal 30 days) after taking the objection into account — public interest can still override the objection.",
+    "section": "rules",
+    "tags": ["third party notice", "confidential information", "40 days extended timeline"]
+  },
+  {
+    "title": "Suo Moto Disclosure Compliance Checklist (for reference)",
+    "content": "Under Section 4, public authorities must proactively publish (typically on their website): organisation structure, powers/duties of officers, decision-making procedures, norms for functions, rules/regulations/instructions manuals, categories of documents held, arrangements for public consultation, list of committees, directory of officers with pay scales, budget allocation, subsidy programme details, concessions/permits granted, and information available in electronic form. If a citizen finds this missing, they can file RTI for it or highlight the non-compliance in a complaint.",
+    "section": "rules",
+    "tags": ["section 4 compliance", "proactive disclosure checklist", "suo moto"]
+  },
+  {
+    "title": "RTI for BPL (Below Poverty Line) Applicants",
+    "content": "BPL cardholders are exempt from all fees under the RTI Act — the application fee (₹10) and any additional fees for photocopies/inspection. Required: attach a self-attested copy of a valid BPL card/certificate issued by the appropriate state authority along with the RTI application. If the PIO demands fee despite a valid BPL certificate, this is a valid ground for a Section 18 complaint.",
+    "section": "rules",
+    "tags": ["BPL", "fee exemption", "below poverty line", "no fee"]
+  },
+  {
+    "title": "Refund of Excess Fee",
+    "content": "If a PIO fails to provide information within the deadline, the information (when eventually given) must be furnished FREE of cost — no additional fee can be charged for photocopies etc. after the deadline has lapsed. If excess fee was already collected, it should be refunded or adjusted; this can be raised in a First Appeal if the PIO does not comply on its own.",
+    "section": "rules",
+    "tags": ["free information after delay", "refund", "excess fee", "deadline missed"]
+  }
+]

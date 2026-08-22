@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Section 2(7) — Who is a 'Consumer'",
+    "content": "A 'consumer' is any person who buys goods or hires/avails services for a consideration (paid, promised, or partly paid), including any user of such goods/services with the buyer's approval. IMPORTANT EXCLUSIONS: A person who obtains goods for RESALE or for COMMERCIAL PURPOSE is NOT a consumer under this Act. However, buying goods/services exclusively for earning a livelihood through self-employment IS covered (e.g., a taxi driver buying a car to drive for income counts as a consumer).",
+    "section": "act",
+    "tags": ["section 2(7)", "definition of consumer", "who is a consumer", "commercial purpose exclusion"]
+  },
+  {
+    "title": "Section 2(11) — 'Defect' in Goods",
+    "content": "A 'defect' means any fault, imperfection, or shortcoming in the quality, quantity, potency, purity, or standard required to be maintained by law, contract, or as claimed by the trader/manufacturer (including in packaging, labelling, or express/implied warranty). This is the legal basis for claiming a product is 'defective.'",
+    "section": "act",
+    "tags": ["section 2(11)", "defect definition", "defective goods"]
+  },
+  {
+    "title": "Section 2(11) — 'Deficiency' in Service",
+    "content": "'Deficiency' means any fault, imperfection, shortcoming, or inadequacy in the quality, nature, or manner of performance required by law or contract, and includes: (i) any act of negligence or omission causing loss/injury by a deliberate withholding of relevant information by the service provider, and (ii) an act of negligence including deficiency in expected safety standards, whether or not there is loss/damage caused as a result.",
+    "section": "act",
+    "tags": ["deficiency definition", "service deficiency", "negligence"]
+  },
+  {
+    "title": "Section 2(46) — Unfair Contract",
+    "content": "An 'unfair contract' is one between a manufacturer/trader/service provider and a consumer that causes significant change in consumer rights, including: requiring excessive security deposits, disproportionate penalties for breach, unilateral termination without cause, one-sided assignment of contract without consent, imposing unreasonable charges, or entitling the seller to terminate a contract at will without proper cause. Consumer courts can declare such contract terms void.",
+    "section": "act",
+    "tags": ["unfair contract", "section 2(46)", "one-sided terms", "void terms"]
+  },
+  {
+    "title": "Central Consumer Protection Authority (CCPA) — Establishment and Powers",
+    "content": "The CCPA is a regulatory body established under CPA 2019 (Sections 10-27) to protect the collective interests of consumers as a class (not individual disputes — those go to consumer commissions). Its powers include: investigating violations of consumer rights, ordering recall of unsafe goods/services, ordering discontinuation of unfair trade practices, ordering refunds, imposing penalties on manufacturers/endorsers for false/misleading advertisements, and filing complaints before consumer commissions on behalf of a class of consumers. Website: consumeraffairs.nic.in.",
+    "section": "act",
+    "tags": ["CCPA", "central consumer protection authority", "class complaints", "regulatory powers"]
+  },
+  {
+    "title": "Section 21 — Penalty for Misleading Advertisements",
+    "content": "If the CCPA finds an advertisement false or misleading and prejudicial to consumer interest, it can: impose a penalty up to ₹10 lakh on the manufacturer/advertiser (up to ₹50 lakh for subsequent contraventions), and prohibit the endorser of a misleading ad from endorsing that product for up to 1 year (up to 3 years for repeat violations). Endorsers can avoid penalty if they exercised due diligence to verify the claims before endorsing.",
+    "section": "act",
+    "tags": ["section 21", "misleading advertisement penalty", "celebrity endorser liability", "false ads"]
+  },
+  {
+    "title": "Product Liability — Chapter VI (Sections 82-87)",
+    "content": "CPA 2019 introduced product liability, allowing a consumer to claim compensation from the product manufacturer, service provider, or seller for any harm caused by a defective product or deficient service. Manufacturer is liable if: the product had a manufacturing defect, design defect, deviates from manufacturing specifications, doesn't conform to express warranty, or fails to contain adequate warnings/instructions. A product seller (not the manufacturer) is liable only in limited situations, e.g., if they exercised no reasonable care or altered the product.",
+    "section": "act",
+    "tags": ["product liability", "chapter VI", "manufacturer liability", "seller liability", "compensation"]
+  },
+  {
+    "title": "Mediation — Sections 74-81",
+    "content": "CPA 2019 introduced mediation as an alternative dispute resolution mechanism. Consumer Commissions can refer a case for mediation (with the consent of both parties) to a Mediation Cell attached to the Commission. This aims for faster, less adversarial resolution. If mediation succeeds, a settlement report is recorded and it has the same effect as a Commission order. If it fails, the case returns to the regular adjudication process.",
+    "section": "act",
+    "tags": ["mediation", "ADR", "alternative dispute resolution", "settlement"]
+  },
+  {
+    "title": "E-Commerce Rules 2020 — Key Obligations",
+    "content": "Under the Consumer Protection (E-Commerce) Rules, 2020, e-commerce entities must: display seller's name, address, contact, and rating; not manipulate search results to favour affiliated sellers unfairly; provide a grievance officer with contact details who must acknowledge complaints within 48 hours and resolve within 1 month; not charge cancellation fees on consumers unless the platform also bears similar fees for cancelling on its side; and clearly display total price including all charges (no hidden fees at checkout). These rules apply to both 'inventory-based' e-commerce (platform owns stock) and 'marketplace' e-commerce (third-party sellers).",
+    "section": "act",
+    "tags": ["e-commerce rules 2020", "grievance officer", "48 hours", "hidden charges", "marketplace"]
+  },
+  {
+    "title": "Section 88-91 — Offences and Criminal Penalties",
+    "content": "Beyond civil compensation, CPA 2019 has criminal provisions: manufacturing/selling adulterated or spurious goods that cause injury or death can lead to imprisonment (up to 6 months to life imprisonment depending on severity) and fines (₹1 lakh to ₹10 lakh or more). These criminal cases are separate from compensation claims in consumer commissions and are typically prosecuted through regular criminal courts based on complaints/FIRs.",
+    "section": "act",
+    "tags": ["criminal penalty", "adulterated goods", "spurious goods", "imprisonment"]
+  },
+  {
+    "title": "Section 39-41 — District Commission Powers and Complaint Admission",
+    "content": "A District Commission, upon admitting a complaint, can direct: removal of defect, replacement, refund, payment of compensation for loss/injury (including mental agony and harassment), removal of deficiency, discontinuation of unfair trade practice, withdrawal of hazardous goods from sale, and payment of adequate costs. The Commission must decide on admissibility of the complaint within 21 days of filing.",
+    "section": "act",
+    "tags": ["district commission powers", "admission of complaint", "21 days", "remedies available"]
+  },
+  {
+    "title": "Section 71-72 — Enforcement of Commission Orders",
+    "content": "Every order of a Consumer Commission must be complied with within the time specified (usually 30-45 days). Failure to comply can lead to: imprisonment of 1 month to 3 years, and/or fine of ₹25,000 to ₹1 lakh. The Commission itself has powers of execution similar to a civil court to enforce its own orders, including attachment of property.",
+    "section": "act",
+    "tags": ["enforcement", "order not complied", "execution", "imprisonment for non-compliance"]
+  }
+]

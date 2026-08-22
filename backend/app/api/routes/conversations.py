@@ -41,7 +41,7 @@ async def create_conversation(
 ) -> ConversationRead:
     try:
         get_agent(payload.agent_id)
-        conversation = chat_service.create_conversation(
+        conversation = await chat_service.create_conversation(
             agent_id=payload.agent_id,
             title=payload.title,
         )
@@ -55,7 +55,7 @@ async def list_conversations() -> ConversationList:
     return ConversationList(
         conversations=[
             _to_conversation_read(conversation)
-            for conversation in chat_service.list_conversations()
+            for conversation in await chat_service.list_conversations()
         ]
     )
 
@@ -66,7 +66,7 @@ async def get_conversation(
 ) -> ConversationRead:
     try:
         return _to_conversation_read(
-            chat_service.get_conversation(conversation_id)
+            await chat_service.get_conversation(conversation_id)
         )
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
@@ -75,7 +75,7 @@ async def get_conversation(
 @router.delete("/{conversation_id}", status_code=204)
 async def delete_conversation(conversation_id: str) -> Response:
     try:
-        chat_service.delete_conversation(conversation_id)
+        await chat_service.delete_conversation(conversation_id)
         return Response(status_code=204)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc

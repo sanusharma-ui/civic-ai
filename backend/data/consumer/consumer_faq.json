@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Can I file a consumer complaint without a bill/receipt?",
+    "content": "It's much harder but not impossible. Alternative proof includes: bank/card statement showing the payment, order confirmation SMS/email, WhatsApp chat with the seller, packaging with warranty card, photos/videos of the product, or witness testimony. Always try to preserve some payment proof at the time of purchase — without ANY proof, the Commission may dismiss the complaint for lack of evidence of the transaction.",
+    "section": "faq",
+    "tags": ["no bill", "no receipt", "proof of purchase", "alternative evidence"]
+  },
+  {
+    "title": "What is the difference between Warranty and Guarantee?",
+    "content": "A WARRANTY is a promise to repair or replace a defective part/product within a specified period — usually free but sometimes with conditions. A GUARANTEE is a broader promise of the product's overall performance/quality, and if it fails, you're often entitled to a full refund or replacement, not just repair. Both are enforceable under consumer law even if the physical warranty card is lost, as long as you can prove purchase and the promised terms (e.g., via the seller's website or box printing).",
+    "section": "faq",
+    "tags": ["warranty vs guarantee", "difference", "warranty card lost"]
+  },
+  {
+    "title": "Do I need a lawyer to file a consumer complaint?",
+    "content": "No. Consumer Commissions were specifically designed to be accessible without a lawyer — you can draft and file your own complaint (or use e-Daakhil), and represent yourself at hearings. Many people do it themselves for smaller claims. However, for complex cases (large amounts, product liability, or e-commerce platform disputes), a lawyer can help draft stronger arguments and handle procedural aspects.",
+    "section": "faq",
+    "tags": ["lawyer needed", "self representation", "without advocate", "e-daakhil"]
+  },
+  {
+    "title": "Can I claim compensation for mental agony/harassment, not just refund?",
+    "content": "Yes. Section 39 explicitly allows Consumer Commissions to award compensation for 'loss or injury,' which courts have interpreted to include mental agony, harassment, and loss of time — not just the monetary value of the product. This is in addition to refund/replacement of the product itself. Document your harassment (number of calls made, visits to the shop, time lost) to strengthen this claim.",
+    "section": "faq",
+    "tags": ["mental agony", "harassment compensation", "beyond refund"]
+  },
+  {
+    "title": "What if I bought something at the wrong MRP (overcharged)?",
+    "content": "Charging above the printed MRP (Maximum Retail Price) is illegal under the Legal Metrology Act as well as an unfair trade practice under CPA 2019. You can: complain to the local Legal Metrology/Weights & Measures department, file a consumer complaint for the excess amount charged plus compensation, or report to the National Consumer Helpline (1800-11-4000). Keep the bill showing the overcharge as proof.",
+    "section": "faq",
+    "tags": ["MRP overcharge", "above MRP", "legal metrology"]
+  },
+  {
+    "title": "How do I complain about medical negligence?",
+    "content": "Medical negligence is covered as a 'deficiency in service' under CPA 2019 (hospitals/doctors are service providers). You can file a consumer complaint against the doctor/hospital claiming compensation. Separately, you can also file a complaint with the State Medical Council for professional misconduct action against the doctor's license. For serious injury/death, a criminal complaint (under BNS provisions on negligence) may also apply. Medical records, treatment bills, and expert opinion strengthen the case.",
+    "section": "faq",
+    "tags": ["medical negligence", "doctor complaint", "hospital complaint", "medical council"]
+  },
+  {
+    "title": "How do I complain about a builder/real estate delay?",
+    "content": "For registered projects, first approach RERA (Real Estate Regulatory Authority) of your state — it's a faster, specialized forum for possession delays, false promises, and construction quality issues, and can order refund with interest or possession with compensation. You can ALSO file a parallel consumer complaint for deficiency in service, as CPA and RERA remedies are not mutually exclusive (per Supreme Court rulings). Check project registration status on your state's RERA website first.",
+    "section": "faq",
+    "tags": ["builder complaint", "RERA", "real estate delay", "possession delay"]
+  },
+  {
+    "title": "Can I complain about e-commerce COD (Cash on Delivery) refund delays?",
+    "content": "Yes. Under E-Commerce Rules 2020, platforms must process refunds within a reasonable time (usually stated in their own policy, typically 5-10 working days). If delayed beyond their stated policy: first raise it via the platform's grievance officer (must respond within 48 hours), then escalate to National Consumer Helpline or file on e-Daakhil against both the seller and platform for deficiency in service.",
+    "section": "faq",
+    "tags": ["COD refund delay", "e-commerce refund", "grievance officer"]
+  },
+  {
+    "title": "What if my insurance claim is rejected unfairly?",
+    "content": "You can: (1) File a written representation with the insurer's grievance cell first. (2) Approach the Insurance Ombudsman (free, fast — for claims up to ₹50 lakh) at cioins.co.in. (3) File a consumer complaint for deficiency in service, which can run in parallel. Keep the rejection letter, policy document, and all claim correspondence as evidence. Unreasonable/arbitrary rejection (not based on valid policy terms) is a strong ground for compensation plus the claim amount.",
+    "section": "faq",
+    "tags": ["insurance claim rejected", "insurance ombudsman", "cioins.co.in"]
+  },
+  {
+    "title": "What if the opposite party doesn't show up for hearings?",
+    "content": "If the opposite party (seller/company) fails to respond within 30-45 days of notice or doesn't appear despite being served, the Commission can proceed EX-PARTE — deciding the case based only on your evidence and arguments. This often works in the complainant's favour if their claim is well-documented, since there's no rebuttal from the other side.",
+    "section": "faq",
+    "tags": ["ex-parte", "opposite party absent", "no response from seller"]
+  },
+  {
+    "title": "What happens after the Commission passes an order but the company doesn't comply?",
+    "content": "You can file an EXECUTION APPLICATION before the same Commission that passed the order. The Commission has powers similar to a civil court and can order attachment of the company's property, and non-compliance can additionally result in imprisonment (1 month to 3 years) and fine (₹25,000 to ₹1 lakh) for the responsible person under Section 72.",
+    "section": "faq",
+    "tags": ["order not followed", "execution application", "non-compliance", "enforcement"]
+  },
+  {
+    "title": "Is there a cooling-off / return period for online purchases?",
+    "content": "There's no single blanket legal 'cooling-off period' set by CPA 2019 itself — return/exchange windows are largely governed by each platform's stated policy (commonly 7-10 days). However, the E-Commerce Rules 2020 require platforms to clearly display their return, refund, and cancellation policies before purchase, and misrepresenting or not honouring these stated policies IS an unfair trade practice you can complain about.",
+    "section": "faq",
+    "tags": ["cooling off period", "online return policy", "return window"]
+  },
+  {
+    "title": "Can multiple consumers file one complaint together (class action)?",
+    "content": "Yes. Under Section 35(1)(c), one or more consumers with the SAME interest (affected by the same issue, e.g., a defective product batch) can file a joint complaint on behalf of all similarly affected consumers, with the Commission's permission. This avoids the need for hundreds of identical individual complaints. Separately, the CCPA can also take up class-wide issues suo moto.",
+    "section": "faq",
+    "tags": ["class action", "joint complaint", "multiple consumers", "group complaint"]
+  },
+  {
+    "title": "How do I track my consumer complaint status?",
+    "content": "If filed via e-Daakhil (edaakhil.nic.in), log in and check 'Case Status' using your case/complaint number. For NCDRC-level cases, you can also check confonet.nic.in which has a case status search across District, State, and National Commissions using the case number or party name.",
+    "section": "faq",
+    "tags": ["track complaint", "case status", "confonet.nic.in"]
+  },
+  {
+    "title": "Can I complain about food safety issues (expired/contaminated food)?",
+    "content": "Yes, through two parallel routes: (1) FSSAI (Food Safety and Standards Authority) — report via their Food Safety Connect app or 1800-11-2100 helpline for regulatory/food safety violations. (2) Consumer Commission — for a deficiency/defective product complaint claiming compensation for harm caused. Keep the product packaging (showing expiry date/batch number), photos, and medical records if you fell ill.",
+    "section": "faq",
+    "tags": ["food safety", "expired food", "FSSAI", "contaminated food"]
+  }
+]

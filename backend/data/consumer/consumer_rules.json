@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Consumer Complaint — Required Documents Checklist",
+    "content": "A complete complaint filing (physical or via e-Daakhil) needs:\n1. Complaint in the prescribed format (Form/Memo of Parties)\n2. Affidavit verifying the facts stated (usually notarized)\n3. List of documents relied upon (bill, warranty card, correspondence, photos)\n4. Vakalatnama (if represented by a lawyer)\n5. Court fee / filing fee proof\n6. Copies for the Commission + one copy per opposite party (so if 2 sellers are named, you need 2 extra copies plus the original)",
+    "section": "rules",
+    "tags": ["documents checklist", "affidavit", "memo of parties", "vakalatnama", "how many copies"]
+  },
+  {
+    "title": "Consumer Commission Filing Fee (by claim amount)",
+    "content": "District Commission filing fees (indicative, may be revised — check current e-Daakhil fee schedule):\n- Up to ₹1 lakh: ₹0 (nil, if complainant is disabled or from certain categories) or nominal ₹100\n- ₹1 lakh–5 lakh: ₹200\n- ₹5 lakh–10 lakh: ₹400\n- ₹10 lakh–20 lakh: ₹500\n- ₹20 lakh–50 lakh: ₹1,000\n- ₹50 lakh–1 crore: ₹2,000\n- Above ₹1 crore (State/National Commission): up to ₹5,000-₹7,500\nFees are paid via demand draft or online payment on e-Daakhil.",
+    "section": "rules",
+    "tags": ["filing fee", "fee by claim amount", "how much to pay"]
+  },
+  {
+    "title": "Appeal from District to State Commission",
+    "content": "If unsatisfied with a District Commission order, you (or the opposite party) can appeal to the State Commission within 45 days of the order. A pre-deposit of 50% of the awarded amount (or ₹35,000/₹25,000 whichever is less, depending on the specific provision applicable) may be required from the opposite party appealing against an order to pay. The State Commission can condone delay for sufficient cause.",
+    "section": "rules",
+    "tags": ["appeal to state commission", "45 days", "pre-deposit", "district to state"]
+  },
+  {
+    "title": "Appeal from State to National Commission (NCDRC)",
+    "content": "An appeal from a State Commission order lies to the NCDRC within 30 days of the order. Beyond NCDRC, a further appeal can be made to the Supreme Court of India within 30 days, but ONLY on a substantial question of law (not just re-arguing facts). This makes the NCDRC effectively the final fact-finding forum in most consumer disputes.",
+    "section": "rules",
+    "tags": ["appeal to NCDRC", "state to national", "supreme court appeal", "30 days"]
+  },
+  {
+    "title": "Limitation Period and Condonation of Delay",
+    "content": "A complaint must be filed within 2 years of the cause of action arising (Section 69). If delayed, you must file an application for CONDONATION OF DELAY along with the complaint, explaining the sufficient cause for the delay (illness, ongoing negotiation with the seller, unaware of the defect earlier, etc.). The Commission has discretion to admit a delayed complaint if satisfied with the explanation — it is not an automatic rejection.",
+    "section": "rules",
+    "tags": ["limitation period", "2 years", "condonation of delay", "late filing"]
+  },
+  {
+    "title": "How the Mediation Process Works",
+    "content": "After a complaint is admitted, if the Commission feels the dispute could be resolved amicably, it may (with both parties' written consent) refer the matter to the Mediation Cell attached to the Commission. A trained mediator facilitates discussion between both sides. If a settlement is reached, it's recorded and becomes binding like a Commission order. If mediation fails within the given timeframe (usually 3-5 sessions), the case returns to normal adjudication — parties don't lose their right to a full hearing.",
+    "section": "rules",
+    "tags": ["mediation process", "how mediation works", "amicable settlement"]
+  },
+  {
+    "title": "CCPA Complaint Procedure (for class-wide/regulatory issues)",
+    "content": "To report a violation affecting consumers as a class (misleading ads, unfair trade practices, unsafe products) to the CCPA:\n1. File via the National Consumer Helpline portal (consumerhelpline.gov.in) or directly to CCPA\n2. CCPA's Investigation Wing examines the complaint\n3. CCPA can issue safety notices, order recalls, impose penalties, and direct discontinuation of the practice\nNote: CCPA does NOT award individual compensation — for personal compensation, you still need to approach the Consumer Commission separately.",
+    "section": "rules",
+    "tags": ["CCPA complaint", "class-wide issue", "regulatory complaint", "investigation wing"]
+  },
+  {
+    "title": "Drafting a Consumer Complaint — Structure",
+    "content": "A well-drafted complaint typically follows this structure:\n1. Title/Cause title (Complainant vs Opposite Party, before which Commission)\n2. Parties' details (names, addresses)\n3. Facts of the case (chronological — what happened, when)\n4. Cause of action (what specifically went wrong — defect/deficiency/unfair practice)\n5. Jurisdiction statement (why this Commission has authority — value + location)\n6. Limitation statement (within 2 years, or why delay should be condoned)\n7. Relief sought (specific: refund amount, compensation amount, replacement, etc.)\n8. Verification and signature",
+    "section": "rules",
+    "tags": ["complaint drafting", "complaint structure", "how to write complaint"]
+  },
+  {
+    "title": "Product Recall Procedure",
+    "content": "If a product is found unsafe/hazardous, the CCPA (or a sector regulator like FSSAI, BIS, or Drug Controller depending on product type) can order a recall. Manufacturers/importers are then required to: publicly notify consumers (via media/website), stop further sale, and provide refund/replacement/repair to affected consumers who return the recalled product. Consumers can check for active recalls via the CCPA/regulator's public notices.",
+    "section": "rules",
+    "tags": ["product recall", "unsafe product", "recall procedure"]
+  },
+  {
+    "title": "National Consumer Helpline — Escalation Path",
+    "content": "The NCH (1800-11-4000) follows this escalation: (1) Complaint registered → forwarded to the company's nodal officer ('Convergence Partner') for resolution within a set window. (2) If unresolved, it escalates within NCH to a senior grievance officer. (3) If still unresolved, NCH guides the consumer on filing a formal complaint via e-Daakhil. NCH itself does NOT have adjudicatory power — it's a mediation/facilitation layer before formal litigation.",
+    "section": "rules",
+    "tags": ["NCH escalation", "convergence partner", "1800-11-4000 process"]
+  }
+]

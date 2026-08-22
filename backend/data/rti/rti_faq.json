@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Who can file an RTI application?",
+    "content": "Any citizen of India can file an RTI application — there is no age limit, education requirement, or need to explain why the information is wanted. Non-resident Indians (NRIs) holding Indian citizenship can also file RTI. Foreign nationals and foreign companies generally CANNOT file RTI in their own name (they can authorise an Indian citizen to file on their behalf in some cases).",
+    "section": "faq",
+    "tags": ["who can file", "eligibility", "citizen", "NRI", "foreigner"]
+  },
+  {
+    "title": "How much does it cost to file an RTI?",
+    "content": "The standard RTI application fee for central government authorities is ₹10 (via postal order, demand draft, court fee stamp, or online payment on rtionline.gov.in). Additional fees apply for photocopies (usually ₹2 per page) and for information provided on CD/floppy. State fees vary slightly (₹10–₹50 depending on the state). Applicants Below Poverty Line (BPL) are EXEMPT from paying any fee — they must attach a copy of their BPL certificate.",
+    "section": "faq",
+    "tags": ["RTI fee", "cost", "₹10", "BPL exemption", "how much"]
+  },
+  {
+    "title": "How do I file an RTI online?",
+    "content": "For central government departments, use the official RTI Online Portal: https://rtionline.gov.in. Steps: Register with your details → Select the Ministry/Department/Public Authority → Write your application text (max 3000 characters) → Pay the ₹10 fee online (net banking/card/UPI) → Submit and note the registration number for tracking. For state government matters, most states have separate portals (e.g., Maharashtra: rtionline.maharashtra.gov.in) — check your specific state's RTI portal since rtionline.gov.in only covers central authorities.",
+    "section": "faq",
+    "tags": ["online RTI", "rtionline.gov.in", "how to file online", "portal"]
+  },
+  {
+    "title": "What if the PIO doesn't reply within 30 days?",
+    "content": "If no response is received within 30 days (or 48 hours for life/liberty matters), it is treated as a 'deemed refusal.' You can then: (1) File a First Appeal with the Appellate Authority of the same department within 30 days of the deadline expiring, explaining that no reply was received. (2) The information must then be provided FREE of cost once it is eventually furnished, since the delay itself is a penalty trigger for the PIO under Section 20.",
+    "section": "faq",
+    "tags": ["no reply", "deemed refusal", "30 days passed", "PIO silent", "what to do"]
+  },
+  {
+    "title": "How do I file a First Appeal?",
+    "content": "Write to the First Appellate Authority (a senior officer, usually one rank above the PIO, in the same department) within 30 days of the PIO's reply (or of the 30-day deadline expiring with no reply). Include: your original RTI application copy, the PIO's response (if any) or proof of no response, and a clear statement of why you are dissatisfied. No fee is required for a first appeal in most states/central departments. The Appellate Authority must decide within 30 days (extendable to 45 days).",
+    "section": "faq",
+    "tags": ["first appeal", "how to appeal", "appellate authority", "appeal format"]
+  },
+  {
+    "title": "How do I file a Second Appeal to the Information Commission?",
+    "content": "If unsatisfied with the First Appeal outcome (or no decision within the time limit), file a Second Appeal to the Central Information Commission (for central authorities) or State Information Commission (for state authorities) within 90 days. Include copies of the original RTI, PIO's reply, first appeal, and appellate authority's order. CIC filings can often be done online at cic.gov.in. No fee is typically required for second appeals.",
+    "section": "faq",
+    "tags": ["second appeal", "CIC", "SIC", "information commission appeal", "90 days"]
+  },
+  {
+    "title": "Can I file RTI against a private company?",
+    "content": "Generally NO — RTI applies only to 'public authorities' (government bodies, PSUs, government-funded entities). However, you CAN file RTI with a government regulator (e.g., SEBI for listed companies, RBI for banks/NBFCs, TRAI for telecom, IRDAI for insurance) asking for information the regulator holds ABOUT the private company. Private schools/hospitals that receive substantial government grants/land at concessional rates may also be covered directly.",
+    "section": "faq",
+    "tags": ["private company RTI", "regulator", "SEBI", "RBI", "not covered"]
+  },
+  {
+    "title": "Can I use RTI to get information about myself (personal file/service record)?",
+    "content": "Yes. Government employees commonly use RTI to get their own service records, ACRs/APARs, promotion files, or complaint status. Since it's your own information, the Section 8(1)(j) 'invasion of privacy' exemption does not apply to you accessing your own data.",
+    "section": "faq",
+    "tags": ["personal information", "own service record", "government employee", "self"]
+  },
+  {
+    "title": "What is the 48-hour rule for RTI (life and liberty cases)?",
+    "content": "If the information sought concerns the life or liberty of a person (e.g., a person in custody, a person facing imminent harm, or an undertrial's status), the PIO must provide the information within 48 HOURS instead of the usual 30 days. This is one of the strictest deadlines in the Act and is meant for urgent, safety-critical situations.",
+    "section": "faq",
+    "tags": ["48 hours", "life and liberty", "urgent RTI", "emergency"]
+  },
+  {
+    "title": "What language should I write my RTI application in?",
+    "content": "You can write your RTI application in Hindi, English, or the official language of the area where the application is being submitted. For central authorities, Hindi or English is generally accepted anywhere in India. There's no requirement to use legal/formal language — a clear, simple written request is enough.",
+    "section": "faq",
+    "tags": ["language", "hindi", "english", "regional language"]
+  },
+  {
+    "title": "Can I ask 'why' a government decision was taken through RTI?",
+    "content": "RTI gives you the right to existing records/information, not the right to demand explanations, opinions, or reasons in the abstract. However, if a decision was made with recorded reasons (e.g., in file notings, minutes, or an order), you CAN ask for a copy of THAT record — which will contain the reasoning. Directly asking 'why did you do X' without pointing to a record may be treated as outside the scope of RTI in some cases, though many PIOs still respond if the reasoning exists in files.",
+    "section": "faq",
+    "tags": ["why questions", "asking reasons", "scope of RTI", "opinions"]
+  },
+  {
+    "title": "What happens if I get incomplete or misleading information?",
+    "content": "You have two options: (1) File a First Appeal citing that the information given is incomplete, incorrect, or misleading. (2) File a direct Complaint (not appeal) to the CIC/SIC under Section 18, since knowingly giving misleading information is itself a ground for penalty on the PIO under Section 20.",
+    "section": "faq",
+    "tags": ["incomplete information", "misleading information", "wrong information", "complaint"]
+  },
+  {
+    "title": "Can I inspect files/records instead of getting photocopies?",
+    "content": "Yes, Section 7(9) allows you to request inspection of records instead of (or before) requesting photocopies. The first hour of inspection is free; every subsequent hour (or fraction) typically costs a small fee (around ₹5, varies by state/department). This is especially useful for bulky records like project files or tender documents.",
+    "section": "faq",
+    "tags": ["inspection of records", "file inspection", "instead of photocopy"]
+  },
+  {
+    "title": "Can I file one RTI application for multiple questions?",
+    "content": "Yes, but it's best practice to keep questions specific, numbered, and focused on one broad topic per application. Some PIOs reject overly long or vague applications (10+ unrelated questions) as an abuse of process, though there's no strict legal limit on the number of questions. Filing focused, specific applications gets faster and more accurate responses.",
+    "section": "faq",
+    "tags": ["multiple questions", "how many questions", "application format tips"]
+  },
+  {
+    "title": "What if the department claims it doesn't have the information?",
+    "content": "The PIO can only say information doesn't exist if a genuine search was conducted and no such record exists — a public authority is not required to CREATE new information or compile data it doesn't already maintain. If you suspect the record does exist and is being denied, you can file a First Appeal challenging the claim and ask the authority to confirm they conducted a proper search.",
+    "section": "faq",
+    "tags": ["information doesn't exist", "no such record", "department denies"]
+  },
+  {
+    "title": "Is there a limit on how much information I can request?",
+    "content": "There's no strict legal cap, but the RTI Online Portal limits the application text box to 3000 characters. Very broad requests (e.g., 'give me all files related to X department for 10 years') may be rejected as unreasonable/vague, or the PIO may ask you to narrow the scope. Well-defined, specific requests are processed faster and are harder to reject.",
+    "section": "faq",
+    "tags": ["limit on information", "broad request", "vague request", "character limit"]
+  },
+  {
+    "title": "Can I file RTI anonymously?",
+    "content": "No. RTI requires your name and a contact address (postal or electronic) so the reply can be sent to you. However, you are not required to disclose why you want the information or any other personal details. Some activists file RTI using only a P.O. Box or basic contact info for privacy, but full anonymity is not legally possible.",
+    "section": "faq",
+    "tags": ["anonymous RTI", "identity required", "privacy"]
+  },
+  {
+    "title": "What is the difference between an RTI Appeal and an RTI Complaint?",
+    "content": "An APPEAL (Section 19) challenges the PIO's decision or delay and asks for the information itself. A COMPLAINT (Section 18) is filed when you couldn't even properly submit or process your RTI in the first place — e.g., no PIO was appointed, application was refused outright, or unreasonable fee was demanded. Complaints go directly to the CIC/SIC without needing a first appeal.",
+    "section": "faq",
+    "tags": ["appeal vs complaint", "difference", "section 18", "section 19"]
+  },
+  {
+    "title": "Can RTI be used to get police FIR copies or court records?",
+    "content": "FIR copies can generally be obtained via RTI from the police department, though some states have restrictions during active investigation (citing Section 8(1)(h) — info that would impede investigation/prosecution). Certified copies of court orders/judgments are usually obtained through the court's own copying section rather than RTI, since courts as institutions are often only partially covered and have their own procedures for certified copies.",
+    "section": "faq",
+    "tags": ["FIR copy", "police records", "court records", "certified copy"]
+  },
+  {
+    "title": "What if the PIO asks me to pay an unreasonably high fee?",
+    "content": "If the additional fee demanded (for photocopies, inspection, etc.) seems disproportionate, you can file a Complaint under Section 18 directly to the CIC/SIC, citing 'unreasonable fee' as one of the specific grounds listed in that section. You can also request a breakdown of how the fee was calculated (e.g., number of pages × per-page rate).",
+    "section": "faq",
+    "tags": ["high fee", "unreasonable fee demanded", "excessive charges"]
+  }
+]

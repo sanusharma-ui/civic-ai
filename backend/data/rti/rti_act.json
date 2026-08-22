@@ -1,0 +1,122 @@
+[
+  {
+    "title": "RTI Act 2005 — Overview",
+    "content": "The Right to Information Act, 2005 (RTI Act) empowers every citizen of India to request information from any 'public authority' — government departments, ministries, PSUs, government-funded NGOs, courts, and local bodies. It came into force on 12 October 2005. The Act was created to promote transparency and accountability in the working of every public authority. It overrides the Official Secrets Act, 1923 wherever there is a conflict.",
+    "section": "act",
+    "tags": ["RTI act", "2005", "overview", "right to information", "transparency"]
+  },
+  {
+    "title": "Section 2(f) — What counts as 'Information'",
+    "content": "Section 2(f) defines 'information' very broadly: any material in any form, including records, documents, memos, emails, opinions, advices, press releases, circulars, orders, logbooks, contracts, reports, papers, samples, models, and data material held in any electronic form. It also includes information relating to any private body which can be accessed by a public authority under any other law. Note: RTI does NOT compel an authority to create new information, give opinions/reasons, or answer 'why' questions unless a record already exists.",
+    "section": "act",
+    "tags": ["section 2f", "definition of information", "what is information", "records"]
+  },
+  {
+    "title": "Section 2(h) — What is a 'Public Authority'",
+    "content": "A 'public authority' under Section 2(h) means any authority or body established by the Constitution, by Parliament/State legislature, or by government notification — including bodies owned, controlled, or substantially financed (directly or indirectly) by government funds. This covers ministries, government departments, PSUs, government schools/colleges, municipal bodies, police, courts, and NGOs that get substantial government funding. Purely private companies with no government funding are NOT covered directly — but info about them held by a government regulator CAN be sought.",
+    "section": "act",
+    "tags": ["section 2h", "public authority", "who can be asked", "definition"]
+  },
+  {
+    "title": "Section 3 — Right to Information",
+    "content": "Section 3 is the core provision: it states that all citizens shall have the right to information, subject to the provisions of the Act. This right is available only to citizens of India (not foreign nationals or foreign entities). There is no need to give any reason for seeking information, and no need to explain personal interest in the matter.",
+    "section": "act",
+    "tags": ["section 3", "right to information", "citizens only", "core right"]
+  },
+  {
+    "title": "Section 4 — Suo Moto Disclosure Obligations",
+    "content": "Section 4 requires every public authority to proactively publish (without anyone asking) 17 categories of information, including: its organisation structure and functions, powers and duties of officers, norms for decision-making, rules/regulations/manuals used, budget details, subsidy programmes, and details of officers. This proactive disclosure is meant to reduce the need for citizens to file RTIs for routine information. Authorities must update this at least once a year.",
+    "section": "act",
+    "tags": ["section 4", "suo moto disclosure", "proactive disclosure", "17 categories"]
+  },
+  {
+    "title": "Section 5 — Public Information Officers (PIOs)",
+    "content": "Section 5 requires every public authority to designate Public Information Officers (PIOs) in all administrative units/offices to provide information to citizens. It also allows designation of Assistant Public Information Officers (APIOs) at sub-divisional levels to receive applications and forward them. The PIO is personally responsible for ensuring the applicant gets a response within the statutory time limit.",
+    "section": "act",
+    "tags": ["section 5", "PIO", "public information officer", "APIO", "who to send RTI to"]
+  },
+  {
+    "title": "Section 6 — How to Request Information",
+    "content": "Section 6 lays out how a citizen can request information: a written or electronic request to the PIO, along with the prescribed fee. If the applicant is unable to make a written request, the PIO must provide reasonable assistance to write it down. The applicant is NOT required to give any reason for the request or any personal details other than contact information needed to reach them.",
+    "section": "act",
+    "tags": ["section 6", "how to file RTI", "request format", "no reason needed"]
+  },
+  {
+    "title": "Section 6(3) — Wrong PIO / Transfer of Application",
+    "content": "If an RTI application is sent to a public authority that does not hold the requested information, but knows which other authority does, the receiving PIO must transfer the application to the correct authority within 5 days and inform the applicant. This means a citizen doesn't need to know the exact department — a reasonably addressed application will still get processed if the wrong office receives it first.",
+    "section": "act",
+    "tags": ["section 6(3)", "wrong department", "transfer application", "5 days"]
+  },
+  {
+    "title": "Section 7 — Time Limits for Disposal",
+    "content": "Section 7 sets strict deadlines:\n- Normal request: information must be given within 30 days of receipt of application.\n- If application is transferred to another PIO: 35 days from the original receipt.\n- Life or liberty cases (matters concerning life or personal liberty of a person): 48 HOURS.\n- If deadline is missed, the information must be provided FREE of cost as a penalty on the authority.",
+    "section": "act",
+    "tags": ["section 7", "time limit", "30 days", "48 hours", "life and liberty", "deadline"]
+  },
+  {
+    "title": "Section 7(9) — Form of Information",
+    "content": "Section 7(9) states that information should ordinarily be provided in the form requested (e.g., photocopy, CD, printout) unless it would disproportionately divert the resources of the public authority or would be harmful to the safety/preservation of the record.",
+    "section": "act",
+    "tags": ["section 7(9)", "form of information", "format requested"]
+  },
+  {
+    "title": "Section 8 — Exemptions from Disclosure",
+    "content": "Section 8(1) lists categories of information exempt from disclosure, including: information affecting sovereignty/integrity/security of India; information forbidden by court order; info that would breach parliamentary privilege; commercial confidence/trade secrets (unless larger public interest requires disclosure); info received in fiduciary relationship; info that would endanger someone's life/safety; info that would impede investigation/prosecution; cabinet papers (until decision is complete); and personal information with no public interest link (Section 8(1)(j)). Note: many exemptions have a 'public interest override' — if public interest outweighs harm, info must still be given.",
+    "section": "act",
+    "tags": ["section 8", "exemptions", "what can be denied", "8(1)(j)", "personal information"]
+  },
+  {
+    "title": "Section 8(3) — 20-Year Rule",
+    "content": "Section 8(3) states that most exemptions in Section 8(1) (except a few like sovereignty/security and cabinet papers) cease to apply after 20 years from the date the information was created. This means old historical records generally become disclosable regardless of the original exemption grounds.",
+    "section": "act",
+    "tags": ["section 8(3)", "20 year rule", "old records", "historical information"]
+  },
+  {
+    "title": "Section 10 — Severability of Exempted Information",
+    "content": "Section 10 requires that if only part of a record is exempt under Section 8, the PIO must still provide the rest of the record after redacting/severing the exempt portion, rather than denying the entire document.",
+    "section": "act",
+    "tags": ["section 10", "severability", "partial disclosure", "redaction"]
+  },
+  {
+    "title": "Section 11 — Third Party Information",
+    "content": "If the requested information relates to a third party (someone other than the applicant and the authority) and that third party has treated it as confidential, the PIO must give the third party a chance to object within 5 days of receiving the request, and consider their objection before deciding whether to disclose.",
+    "section": "act",
+    "tags": ["section 11", "third party information", "confidential", "objection"]
+  },
+  {
+    "title": "Section 12–17 — Information Commissions",
+    "content": "These sections establish the Central Information Commission (CIC) for central government authorities and State Information Commissions (SIC) for state authorities. These are independent bodies headed by a Chief Information Commissioner, which hear second appeals and complaints, and have powers similar to a civil court (summoning witnesses, requiring documents, etc.).",
+    "section": "act",
+    "tags": ["section 12", "CIC", "SIC", "information commission", "central information commission"]
+  },
+  {
+    "title": "Section 18 — Complaints to Information Commission",
+    "content": "Section 18 allows a citizen to file a COMPLAINT (different from an appeal) directly to the CIC/SIC if: they were unable to submit a request because no PIO was appointed; the PIO refused to accept the application; they were denied access without valid reason; they were asked to pay unreasonable fees; or they believe they received incomplete/false/misleading information.",
+    "section": "act",
+    "tags": ["section 18", "complaint", "when to complain", "PIO not appointed"]
+  },
+  {
+    "title": "Section 19 — Appeals Process",
+    "content": "Section 19 creates a two-tier appeal system:\n1. FIRST APPEAL: If unsatisfied with the PIO's response (or no response within 30 days), the applicant can appeal to the First Appellate Authority (a senior officer within the same public authority) within 30 days. The Appellate Authority must decide within 30 days (extendable to 45 days with reasons).\n2. SECOND APPEAL: If still unsatisfied, a second appeal can be filed with the CIC/SIC within 90 days of the first appellate order.",
+    "section": "act",
+    "tags": ["section 19", "first appeal", "second appeal", "appellate authority", "appeal process"]
+  },
+  {
+    "title": "Section 20 — Penalties on PIOs",
+    "content": "Section 20 allows the CIC/SIC to impose a penalty of ₹250 per day of delay (up to a maximum of ₹25,000) on a PIO who without reasonable cause: refused to receive an application, did not furnish information within the time limit, malafidely denied a request, gave incorrect/incomplete/misleading information, destroyed requested information, or obstructed the furnishing of information. The Commission can also recommend disciplinary action against the PIO under applicable service rules.",
+    "section": "act",
+    "tags": ["section 20", "penalty", "PIO fine", "₹250 per day", "₹25000"]
+  },
+  {
+    "title": "Section 22 — RTI Act Overrides Other Laws",
+    "content": "Section 22 gives the RTI Act overriding effect — its provisions apply notwithstanding anything inconsistent in the Official Secrets Act, 1923, or any other law in force. This means RTI generally takes precedence over secrecy provisions in other statutes, subject to the exemptions already listed in Section 8.",
+    "section": "act",
+    "tags": ["section 22", "overrides", "official secrets act", "precedence"]
+  },
+  {
+    "title": "Section 24 — Excluded Organisations",
+    "content": "Section 24 exempts intelligence and security organisations specified in the Second Schedule (e.g., IB, RAW, CBI, BSF, CRPF, Assam Rifles, and similar central/state agencies) from the Act — EXCEPT that information regarding allegations of corruption and human rights violations must still be provided, and even then, human rights violation info requires prior CIC approval and must be given within 45 days.",
+    "section": "act",
+    "tags": ["section 24", "excluded organisations", "intelligence agencies", "CBI", "corruption exception"]
+  }
+]
