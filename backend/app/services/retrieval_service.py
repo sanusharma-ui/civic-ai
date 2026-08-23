@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import logging
+from functools import lru_cache
 from pathlib import Path
 
 from app.agents.registry import AgentConfig
@@ -70,7 +71,7 @@ class RetrievalService:
         # Score by keyword overlap with query
         return self._score_and_rank(all_docs, query=query, limit=limit)
 
-    def format_context(self, documents: list[KnowledgeDocument]) -> str:
+    def format_context(self, documents: list[KnowledgeDocument], max_chars: int = 12000) -> str:
         """Format documents as a numbered context block for LLM injection."""
         if not documents:
             return (
@@ -90,7 +91,7 @@ class RetrievalService:
                     ]
                 )
             )
-        return "\n\n".join(blocks)
+        return "\n\n".join(blocks)[:max_chars]
 
     def serialize(self, documents: list[KnowledgeDocument]) -> list[dict]:
         """Serialise documents for API response (no full content — just metadata)."""
@@ -109,6 +110,7 @@ class RetrievalService:
     # Private — JSON files
     # ------------------------------------------------------------------
 
+    @lru_cache(maxsize=8)
     def _load_domain_documents(self, domain: str) -> list[KnowledgeDocument]:
         domain_dir = self.data_dir / domain
         if not domain_dir.exists():

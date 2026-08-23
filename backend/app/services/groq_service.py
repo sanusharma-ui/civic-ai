@@ -37,7 +37,11 @@ class GroqService:
                 "GROQ_API_KEY is not configured. Add it to backend/.env."
             )
         if self._client is None:
-            self._client = AsyncGroq(api_key=settings.groq_api_key)
+            self._client = AsyncGroq(
+                api_key=settings.groq_api_key,
+                timeout=settings.groq_timeout_seconds,
+                max_retries=0,
+            )
         return self._client
 
     # ------------------------------------------------------------------
@@ -50,11 +54,12 @@ class GroqService:
         messages: list[dict[str, Any]],
         temperature: float | None = None,
         max_tokens: int | None = None,
+        model: str | None = None,
     ) -> dict[str, Any]:
         """Single-turn completion. Returns content, model, usage."""
         try:
             response = await self.client.chat.completions.create(
-                model=settings.groq_model,
+                model=model or settings.groq_model,
                 messages=messages,
                 temperature=temperature or settings.groq_temperature,
                 max_tokens=max_tokens or settings.groq_max_tokens,
@@ -81,6 +86,7 @@ class GroqService:
         tools: list[dict[str, Any]],
         temperature: float | None = None,
         max_tokens: int | None = None,
+        model: str | None = None,
     ) -> dict[str, Any]:
         """
         Single completion step with tool schemas.
@@ -93,7 +99,7 @@ class GroqService:
         """
         try:
             response = await self.client.chat.completions.create(
-                model=settings.groq_model,
+                model=model or settings.groq_model,
                 messages=messages,
                 tools=tools,
                 tool_choice="auto",
@@ -150,11 +156,12 @@ class GroqService:
         messages: list[dict[str, Any]],
         temperature: float | None = None,
         max_tokens: int | None = None,
+        model: str | None = None,
     ) -> AsyncIterator[str]:
         """Token-by-token streaming (no tools — used after agentic loop)."""
         try:
             stream = await self.client.chat.completions.create(
-                model=settings.groq_model,
+                model=model or settings.groq_model,
                 messages=messages,
                 temperature=temperature or settings.groq_temperature,
                 max_tokens=max_tokens or settings.groq_max_tokens,

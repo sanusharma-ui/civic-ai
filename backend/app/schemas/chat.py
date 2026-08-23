@@ -50,11 +50,20 @@ class ChatMessage(BaseModel):
     content: str = Field(min_length=1, max_length=12000)
 
 
+class ChatAttachment(BaseModel):
+    kind: Literal["image", "pdf"]
+    name: str = Field(max_length=255)
+    mime_type: str = Field(max_length=100)
+    data_url: str | None = None
+    extracted_text: str | None = Field(default=None, max_length=50000)
+
+
 class ChatRequest(BaseModel):
     agent_id: str = Field(default="rti", examples=["rti", "consumer"])
     message: str = Field(min_length=1, max_length=12000)
     conversation_id: str | None = None
     history: list[ChatMessage] = Field(default_factory=list)
+    attachments: list[ChatAttachment] = Field(default_factory=list, max_length=4)
 
 
 class AgentMeta(BaseModel):
