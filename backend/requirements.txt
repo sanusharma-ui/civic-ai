@@ -8,6 +8,7 @@ python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
 pypdf
+httpx
 aiosqlite
 python-dateutil
 asyncpg

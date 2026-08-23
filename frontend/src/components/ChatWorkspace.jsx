@@ -412,7 +412,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
         conversationId: targetConversation.backendId,
         history: targetConversation.messages
           .filter((entry) => entry.role === "user" || entry.role === "assistant")
-          .slice(-10)
+          .slice(-6)
           .map((entry) => ({ role: entry.role, content: entry.content })),
         attachments: outgoingAttachments,
         onStart: (payload) => {

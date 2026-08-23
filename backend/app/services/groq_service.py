@@ -37,7 +37,11 @@ class GroqService:
                 "GROQ_API_KEY is not configured. Add it to backend/.env."
             )
         if self._client is None:
-            self._client = AsyncGroq(api_key=settings.groq_api_key)
+            self._client = AsyncGroq(
+                api_key=settings.groq_api_key,
+                timeout=settings.groq_timeout_seconds,
+                max_retries=0,
+            )
         return self._client
 
     # ------------------------------------------------------------------

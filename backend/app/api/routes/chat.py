@@ -41,7 +41,13 @@ async def upload_media(file: UploadFile = File(...)) -> dict:
             raise HTTPException(status_code=400, detail="This PDF could not be read.") from exc
         if not extracted.strip():
             raise HTTPException(status_code=400, detail="This PDF has no selectable text. Upload a text PDF or image instead.")
-        return {"kind": "pdf", "name": name, "mime_type": content_type, "extracted_text": extracted[:50000]}
+        return {
+            "kind": "pdf",
+            "name": name,
+            "mime_type": content_type,
+            "data_url": f"data:{content_type};base64,{base64.b64encode(data).decode('ascii')}",
+            "extracted_text": extracted[:50000],
+        }
     encoded = base64.b64encode(data).decode("ascii")
     return {"kind": "image", "name": name, "mime_type": content_type, "data_url": f"data:{content_type};base64,{encoded}"}
 

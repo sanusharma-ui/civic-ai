@@ -37,6 +37,10 @@ class Settings(BaseSettings):
     groq_vision_model: str = "meta-llama/llama-4-scout-17b-16e-instruct"
     groq_temperature: float = 0.2
     groq_max_tokens: int = 4096   # agents need space for structured output
+    groq_timeout_seconds: float = 45.0
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-3.6-flash"
+    gemini_timeout_seconds: float = 45.0
 
     # Agentic loop
     agent_max_iterations: int = 5  # max tool-call rounds before forcing final answer
