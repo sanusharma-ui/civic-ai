@@ -743,6 +743,10 @@ a {
   color: var(--muted);
 }
 
+.hamburger-btn {
+  display: none;
+}
+
 .agent-status {
   align-items: center;
   display: flex;
@@ -1622,4 +1626,13 @@ a {
 .source-item-meta {
   color: var(--muted);
   font-size: 11.5px;
+}
+
+@media (max-width: 767px) {
+  .icon-rail {
+    display: none;
+  }
+  .hamburger-btn {
+    display: inline-flex;
+  }
 }
