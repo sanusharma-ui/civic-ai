@@ -162,4 +162,4 @@ jurisdiction-specific details with authoritative sources before acting.
 
 ## License
 
-No license has been declared for this project yet.
+This project has an [MIT License](LICENSE).
