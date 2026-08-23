@@ -60,59 +60,68 @@ export async function streamChat({
   let buffer = "";
   let accumulatedText = "";
 
+  function handleEvent(event) {
+    const line = event
+      .split(/\r?\n/)
+      .find((entry) => entry.startsWith("data:"));
+
+    if (!line) return;
+
+    const payload = JSON.parse(line.replace(/^data:\s*/, ""));
+
+    if (payload.type === "start") onStart?.(payload);
+    if (payload.type === "thinking") {
+      accumulatedText = "_Thinking..._\n\n";
+      onToken?.(accumulatedText);
+    }
+    if (payload.type === "token") {
+      if (accumulatedText === "_Thinking..._\n\n") {
+        accumulatedText = "";
+      }
+      accumulatedText += payload.token || "";
+      onToken?.(accumulatedText);
+    }
+    if (payload.type === "block" && payload.block) {
+      if (accumulatedText === "_Thinking..._\n\n") {
+        accumulatedText = "";
+      }
+      if (payload.block.title) {
+        accumulatedText += `**${payload.block.title}**\n\n`;
+      }
+      accumulatedText += `${payload.block.content}\n\n`;
+      onToken?.(accumulatedText);
+    }
+    if (payload.type === "done") {
+      const hasStructuredResponse =
+        typeof payload.response === "string" &&
+        payload.response.toLowerCase().includes("<structured_response");
+      const formattedResponse = hasStructuredResponse && payload.structured?.length
+        ? blocksToMarkdown(payload.structured)
+        : payload.response;
+      if (formattedResponse) {
+        accumulatedText = formattedResponse;
+        onToken?.(accumulatedText);
+      }
+      onDone?.(payload);
+    }
+    if (payload.type === "error") throw new Error(payload.detail);
+  }
+
   while (true) {
     const { value, done } = await reader.read();
-    if (done) break;
+    if (done) {
+      buffer += decoder.decode();
+      break;
+    }
 
     buffer += decoder.decode(value, { stream: true });
-    const events = buffer.split("\n\n");
+    const events = buffer.split(/\r?\n\r?\n/);
     buffer = events.pop() || "";
 
-    for (const event of events) {
-      const line = event
-        .split("\n")
-        .find((entry) => entry.startsWith("data:"));
-
-      if (!line) continue;
-
-      const payload = JSON.parse(line.replace(/^data:\s*/, ""));
-
-      if (payload.type === "start") onStart?.(payload);
-      if (payload.type === "thinking") {
-        accumulatedText = "_Thinking..._\n\n";
-        onToken?.(accumulatedText);
-      }
-      if (payload.type === "token") {
-        if (accumulatedText === "_Thinking..._\n\n") {
-          accumulatedText = "";
-        }
-        accumulatedText += payload.token || "";
-        onToken?.(accumulatedText);
-      }
-      if (payload.type === "block" && payload.block) {
-        if (accumulatedText === "_Thinking..._\n\n") {
-          accumulatedText = "";
-        }
-        if (payload.block.title) {
-           accumulatedText += `**${payload.block.title}**\n\n`;
-        }
-        accumulatedText += `${payload.block.content}\n\n`;
-        onToken?.(accumulatedText); // Passing full accumulated text
-      }
-      if (payload.type === "done") {
-        const hasStructuredResponse =
-          typeof payload.response === "string" &&
-          payload.response.toLowerCase().includes("<structured_response");
-        const formattedResponse = hasStructuredResponse && payload.structured?.length
-          ? blocksToMarkdown(payload.structured)
-          : payload.response;
-        if (formattedResponse) {
-          accumulatedText = formattedResponse;
-          onToken?.(accumulatedText);
-        }
-        onDone?.(payload);
-      }
-      if (payload.type === "error") throw new Error(payload.detail);
-    }
+    for (const event of events) handleEvent(event);
   }
+
+  // A valid SSE event can arrive without another read after its delimiter.
+  // Process it so the final token/done event is never lost.
+  if (buffer.trim()) handleEvent(buffer);
 }
