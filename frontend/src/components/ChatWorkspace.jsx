@@ -464,7 +464,9 @@ export default function ChatWorkspace({ user, onSignOut }) {
                   ...entry,
                   streaming: false,
                   content:
-                    entry.content ||
+                    entry.content && entry.content !== "_Thinking..._\n\n"
+                      ? entry.content
+                      :
                     "I could not reach the backend. Check API URL, backend server, and Groq key.",
                 }
               : entry,

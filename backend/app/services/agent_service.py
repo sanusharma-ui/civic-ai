@@ -29,7 +29,7 @@ from app.agents.registry import AgentConfig, get_agent
 from app.core.config import settings
 from app.schemas.chat import ChatAttachment, StructuredBlock
 from app.services.groq_service import groq_service
-from app.services.gemini_service import gemini_service
+from app.services.gemini_service import GeminiServiceError, gemini_service
 from app.services.retrieval_service import retrieval_service
 from app.services.tools_service import TOOL_SCHEMAS, ToolRunner
 from app.utils.text import parse_structured_response
@@ -260,27 +260,38 @@ is unreadable, say 'Not clear' instead of guessing.
 
 {SPECIALIST_MODE_RULES}
 """.strip()
-                async with asyncio.timeout(settings.gemini_timeout_seconds):
-                    async for token in gemini_service.stream(
-                        prompt=media_prompt,
-                        attachments=attachments,
-                        system_instruction=media_system,
-                    ):
-                        yield {"type": "token", "token": token}
-                yield {
-                    "type": "done",
-                    "agent": {
-                        "id": agent.agent_id,
-                        "name": agent.name,
-                        "version": agent.version,
-                    },
-                    "model": settings.gemini_model,
-                    "usage": None,
-                    "retrieved_context": [],
-                    "response": "",
-                    "structured": [],
-                }
-                return
+                media_response = ""
+                try:
+                    async with asyncio.timeout(settings.gemini_timeout_seconds):
+                        async for token in gemini_service.stream(
+                            prompt=media_prompt,
+                            attachments=attachments,
+                            system_instruction=media_system,
+                        ):
+                            media_response += token
+                            yield {"type": "token", "token": token}
+                except (GeminiServiceError, TimeoutError) as exc:
+                    # Gemini can be unavailable or return an empty stream. In
+                    # that case continue through the Groq vision path below.
+                    logger.warning("Gemini attachment stream failed; using Groq vision fallback: %s", exc)
+
+                if media_response:
+                    yield {
+                        "type": "done",
+                        "agent": {
+                            "id": agent.agent_id,
+                            "name": agent.name,
+                            "version": agent.version,
+                        },
+                        "model": settings.gemini_model,
+                        "usage": None,
+                        "retrieved_context": [],
+                        "response": media_response,
+                        "structured": [],
+                    }
+                    return
+
+                logger.info("Gemini returned no attachment text; falling back to Groq vision")
 
             local_response = self._local_streaming_response(
                 agent=agent,
@@ -325,13 +336,18 @@ is unreadable, say 'Not clear' instead of guessing.
             )
 
             full_response = ""
+            stream_model = (
+                settings.groq_vision_model
+                if any(a.kind == "image" for a in (attachments or []))
+                else settings.groq_model
+            )
             try:
                 async with asyncio.timeout(60):
                     async for token in groq_service.stream(
                         messages=messages,
                         temperature=settings.groq_temperature,
                         max_tokens=settings.groq_max_tokens,
-                        model=(settings.groq_vision_model if any(a.kind == "image" for a in (attachments or [])) else settings.groq_model),
+                        model=stream_model,
                     ):
                         full_response += token
                         yield {"type": "token", "token": token}
@@ -358,7 +374,7 @@ is unreadable, say 'Not clear' instead of guessing.
                     "name": agent.name,
                     "version": agent.version,
                 },
-                "model": settings.groq_model,
+                "model": stream_model,
                 "usage": None,
                 "retrieved_context": retrieval_service.serialize(initial_docs),
                 "response": full_response,

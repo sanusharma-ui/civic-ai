@@ -213,6 +213,8 @@ async def stream_chat(payload: ChatRequest) -> StreamingResponse:
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Content-Type": "text/event-stream; charset=utf-8",
             "X-Accel-Buffering": "no",
         },
     )
