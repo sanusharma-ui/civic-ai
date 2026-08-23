@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowLeft, Loader2, LogIn, Mail, UserPlus } from "lucide-react";
+import { ArrowLeft, Loader2, LogIn, Mail, UserPlus, Fingerprint } from "lucide-react";
 import { hasSupabaseConfig, supabase } from "../lib/supabase";
 
 export default function AuthPage({ onBack, onDemo }) {
@@ -52,84 +52,116 @@ export default function AuthPage({ onBack, onDemo }) {
     <main className="auth-page">
       <button className="back-button" type="button" onClick={onBack}>
         <ArrowLeft size={18} />
-        Back
+        <span>Back</span>
       </button>
 
-      <section className="auth-card">
-        <div className="auth-visual">
-          <div className="brand-mark large">CA</div>
-          <h1>{mode === "signin" ? "Welcome back" : "Create your Civic AI account"}</h1>
-          <p>
-            Secure your sessions, keep chat history close, and continue civic
-            work from any device once Supabase is connected.
-          </p>
+      <section className="auth-card-premium">
+        <div className="auth-brand-side">
+          <div className="auth-brand-content">
+            <div className="brand-mark-wrapper">
+              <div className="brand-mark large">CA</div>
+              <span className="brand-name">Civic AI</span>
+            </div>
+            <h2>
+              {mode === "signin" 
+                ? "Your workspace for smarter civic action."
+                : "Empower your civic workflows."}
+            </h2>
+            <div className="abstract-motif">
+              <Fingerprint size={120} strokeWidth={0.5} className="motif-icon" />
+            </div>
+          </div>
         </div>
 
-        <form className="auth-form" onSubmit={submit}>
-          <div className="mode-switch">
-            <button
-              className={mode === "signin" ? "active" : ""}
-              type="button"
-              onClick={() => setMode("signin")}
-            >
-              <LogIn size={16} />
-              Login
-            </button>
-            <button
-              className={mode === "signup" ? "active" : ""}
-              type="button"
-              onClick={() => setMode("signup")}
-            >
-              <UserPlus size={16} />
-              Signup
-            </button>
+        <div className="auth-form-side">
+          <div className="form-header">
+            <h1>{mode === "signin" ? "Welcome back" : "Create your Civic AI account"}</h1>
+            <p className="subtitle">
+              {mode === "signin" ? "Continue where you left off." : "Your workspace for smarter civic action."}
+            </p>
           </div>
 
-          {mode === "signup" && (
-            <label>
-              Full name
+          <form className="premium-form" onSubmit={submit}>
+            <div className="mode-toggle-pill">
+              <button
+                className={`toggle-btn ${mode === "signin" ? "active" : ""}`}
+                type="button"
+                onClick={() => {
+                  setMode("signin");
+                  setMessage("");
+                }}
+              >
+                Login
+              </button>
+              <button
+                className={`toggle-btn ${mode === "signup" ? "active" : ""}`}
+                type="button"
+                onClick={() => {
+                  setMode("signup");
+                  setMessage("");
+                }}
+              >
+                Sign up
+              </button>
+            </div>
+
+            {mode === "signup" && (
+              <div className="input-group">
+                <label htmlFor="fullName">Full name</label>
+                <input
+                  id="fullName"
+                  value={fullName}
+                  onChange={(event) => setFullName(event.target.value)}
+                  placeholder="Jane Doe"
+                />
+              </div>
+            )}
+
+            <div className="input-group">
+              <label htmlFor="email">Email address</label>
               <input
-                value={fullName}
-                onChange={(event) => setFullName(event.target.value)}
-                placeholder="Your name"
+                id="email"
+                required
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@example.com"
               />
-            </label>
-          )}
+            </div>
 
-          <label>
-            Email
-            <input
-              required
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="you@example.com"
-            />
-          </label>
+            <div className="input-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                required
+                minLength={6}
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="••••••••"
+              />
+            </div>
 
-          <label>
-            Password
-            <input
-              required
-              minLength={6}
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Minimum 6 characters"
-            />
-          </label>
+            {message && (
+              <div className={`status-message ${message.includes("missing") || message.includes("failed") || message.includes("Invalid") ? "error" : "success"}`}>
+                {message}
+              </div>
+            )}
 
-          {message && <p className="form-message">{message}</p>}
+            <button className="primary-button submit-btn" type="submit" disabled={busy}>
+              {busy ? <Loader2 className="spin" size={18} /> : null}
+              <span>{mode === "signin" ? "Sign In" : "Create Account"}</span>
+            </button>
 
-          <button className="primary-button full" type="submit" disabled={busy}>
-            {busy ? <Loader2 className="spin" size={18} /> : <Mail size={18} />}
-            {mode === "signin" ? "Login and continue" : "Create account"}
-          </button>
+            <div className="divider">
+              <span>or</span>
+            </div>
 
-          <button className="demo-button" type="button" onClick={onDemo}>
-            Continue in demo mode
-          </button>
-        </form>
+            <button className="demo-button premium-demo-btn" type="button" onClick={onDemo}>
+              Continue in Demo Mode
+            </button>
+          </form>
+        </div>
       </section>
     </main>
   );
