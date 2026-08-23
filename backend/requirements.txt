@@ -7,6 +7,7 @@ groq
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
+pypdf
 aiosqlite
 python-dateutil
 asyncpg

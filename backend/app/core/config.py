@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     # Groq
     groq_api_key: str = ""
     groq_model: str = "openai/gpt-oss-120b"
+    groq_vision_model: str = "meta-llama/llama-4-scout-17b-16e-instruct"
     groq_temperature: float = 0.2
     groq_max_tokens: int = 4096   # agents need space for structured output
 

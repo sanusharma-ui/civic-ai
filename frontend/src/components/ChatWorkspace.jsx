@@ -22,7 +22,7 @@ import {
   User,
   X,
 } from "lucide-react";
-import { fetchAgents, streamChat } from "../lib/api";
+import { fetchAgents, streamChat, uploadMedia } from "../lib/api";
 import {
   loadConversations,
   makeConversation,
@@ -235,10 +235,13 @@ export default function ChatWorkspace({ user, onSignOut }) {
   const [error, setError] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const [uploading, setUploading] = useState(false);
   const messagesPanelRef = useRef(null);
   const stickToBottomRef = useRef(true);
   const heroTextareaRef = useRef(null);
   const composerTextareaRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetchAgents()
@@ -352,8 +355,11 @@ export default function ChatWorkspace({ user, onSignOut }) {
   }
 
   async function sendMessage(text = input) {
-    const message = text.trim();
-    if (!message || busy) return;
+    const rawMessage = text.trim();
+    if ((!rawMessage && !attachments.length) || busy || uploading) return;
+    const message = rawMessage || "Please analyze the attached file.";
+
+    const outgoingAttachments = attachments;
 
     let targetConversation = activeConversation;
     if (!targetConversation) {
@@ -363,6 +369,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
     }
 
     setInput("");
+    setAttachments([]);
     setBusy(true);
     setError("");
     stickToBottomRef.current = true;
@@ -371,6 +378,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
       id: crypto.randomUUID(),
       role: "user",
       content: message,
+      attachments: outgoingAttachments.map((file) => ({ name: file.name, kind: file.kind })),
       createdAt: new Date().toISOString(),
     };
     const assistantMessage = {
@@ -406,6 +414,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
           .filter((entry) => entry.role === "user" || entry.role === "assistant")
           .slice(-10)
           .map((entry) => ({ role: entry.role, content: entry.content })),
+        attachments: outgoingAttachments,
         onStart: (payload) => {
           setConversations((current) => current.map((c) =>
             c.id === targetConversation.id ? {
@@ -474,6 +483,22 @@ export default function ChatWorkspace({ user, onSignOut }) {
     }
   }
 
+  async function handleFileChange(event) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    setError("");
+    try {
+      const uploaded = await uploadMedia(file);
+      setAttachments((current) => [...current, uploaded].slice(0, 4));
+    } catch (uploadError) {
+      setError(uploadError.message || "Could not upload this file.");
+    } finally {
+      setUploading(false);
+    }
+  }
+
   function autoGrow(el) {
     if (!el) return;
     el.style.height = "auto";
@@ -496,6 +521,23 @@ export default function ChatWorkspace({ user, onSignOut }) {
           sendMessage();
         }}
       >
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif,application/pdf"
+          hidden
+          onChange={handleFileChange}
+        />
+        {attachments.length > 0 && (
+          <div className="attachment-list" aria-label="Attached files">
+            {attachments.map((file, index) => (
+              <span className="attachment-pill" key={`${file.name}-${index}`}>
+                {file.kind === "pdf" ? "PDF" : "IMG"} · {file.name}
+                <button type="button" onClick={() => setAttachments((current) => current.filter((_, i) => i !== index))} aria-label={`Remove ${file.name}`}><X size={12} /></button>
+              </span>
+            ))}
+          </div>
+        )}
         <textarea
           ref={textareaRef}
           value={input}
@@ -512,8 +554,10 @@ export default function ChatWorkspace({ user, onSignOut }) {
               className="tool-chip icon-only"
               aria-label="Attach a file"
               title="Attach a file"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading || attachments.length >= 4}
             >
-              <Paperclip size={15} />
+              {uploading ? <Loader2 className="spin" size={15} /> : <Paperclip size={15} />}
             </button>
             {agents.map((agent) => (
               <button
@@ -529,7 +573,7 @@ export default function ChatWorkspace({ user, onSignOut }) {
               </button>
             ))}
           </div>
-          <button className="send-button" type="submit" disabled={busy || !input.trim()}>
+          <button className="send-button" type="submit" disabled={busy || uploading || (!input.trim() && !attachments.length)}>
             {busy ? <Loader2 className="spin" size={18} /> : <Send size={18} />}
           </button>
         </div>
@@ -687,7 +731,14 @@ export default function ChatWorkspace({ user, onSignOut }) {
                         )}
                       </>
                     ) : (
-                      <p>{message.content}</p>
+                      <>
+                        {message.attachments?.length > 0 && (
+                          <div className="message-attachments">
+                            {message.attachments.map((file) => <span key={file.name}>{file.kind === "pdf" ? "PDF" : "IMG"} · {file.name}</span>)}
+                          </div>
+                        )}
+                        {message.content && <p>{message.content}</p>}
+                      </>
                     )}
                   </div>
                 </article>

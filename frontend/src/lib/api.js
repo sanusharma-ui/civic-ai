@@ -1,6 +1,15 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
 
+export async function uploadMedia(file) {
+  const body = new FormData();
+  body.append("file", file);
+  const response = await fetch(`${API_BASE_URL}/chat/upload`, { method: "POST", body });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload.detail || "Upload failed.");
+  return payload;
+}
+
 export async function fetchAgents() {
   const response = await fetch(`${API_BASE_URL}/agents`);
   if (!response.ok) throw new Error("Unable to load agents.");
@@ -25,6 +34,7 @@ export async function streamChat({
   onStart,
   onToken,
   onDone,
+  attachments = [],
 }) {
   const response = await fetch(`${API_BASE_URL}/chat/stream`, {
     method: "POST",
@@ -37,6 +47,7 @@ export async function streamChat({
       message,
       conversation_id: conversationId,
       history,
+      attachments,
     }),
   });
 

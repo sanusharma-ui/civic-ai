@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import json
+import base64
 from collections.abc import AsyncIterator
+from io import BytesIO
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, File, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
+from pypdf import PdfReader
 
 from app.agents.registry import get_agent
 from app.schemas.chat import AgentMeta, ChatRequest, ChatResponse, StructuredBlock
@@ -15,6 +18,32 @@ from app.services.chat_service import chat_service
 from app.services.groq_service import GroqServiceError
 
 router = APIRouter()
+
+MAX_UPLOAD_BYTES = 8 * 1024 * 1024
+ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+
+
+@router.post("/upload")
+async def upload_media(file: UploadFile = File(...)) -> dict:
+    """Extract PDF text locally or return an image data URL for vision chat."""
+    content_type = (file.content_type or "").lower()
+    if content_type not in ALLOWED_IMAGE_TYPES and content_type != "application/pdf":
+        raise HTTPException(status_code=415, detail="Only JPG, PNG, WEBP, GIF, and PDF files are supported.")
+    data = await file.read(MAX_UPLOAD_BYTES + 1)
+    if len(data) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="File must be 8 MB or smaller.")
+    name = file.filename or "attachment"
+    if content_type == "application/pdf":
+        try:
+            reader = PdfReader(BytesIO(data))
+            extracted = "\n\n".join((page.extract_text() or "") for page in reader.pages)
+        except Exception as exc:
+            raise HTTPException(status_code=400, detail="This PDF could not be read.") from exc
+        if not extracted.strip():
+            raise HTTPException(status_code=400, detail="This PDF has no selectable text. Upload a text PDF or image instead.")
+        return {"kind": "pdf", "name": name, "mime_type": content_type, "extracted_text": extracted[:50000]}
+    encoded = base64.b64encode(data).decode("ascii")
+    return {"kind": "image", "name": name, "mime_type": content_type, "data_url": f"data:{content_type};base64,{encoded}"}
 
 
 # ---------------------------------------------------------------------------
@@ -134,6 +163,7 @@ async def stream_chat(payload: ChatRequest) -> StreamingResponse:
                 agent_id=payload.agent_id,
                 user_message=payload.message,
                 conversation_history=history,
+                attachments=payload.attachments,
             ):
                 event_type = event.get("type")
 

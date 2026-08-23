@@ -1106,6 +1106,42 @@ a {
   padding: 10px 12px 8px;
 }
 
+.attachment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 2px 6px 6px;
+}
+
+.attachment-pill,
+.message-attachments span {
+  align-items: center;
+  background: rgba(16, 163, 127, 0.14);
+  border: 1px solid rgba(16, 163, 127, 0.35);
+  border-radius: 8px;
+  color: #b7ffee;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 6px;
+  padding: 5px 8px;
+}
+
+.attachment-pill button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0;
+}
+
+.message-attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
 .composer-dock {
   margin: 0 auto calc(18px + env(safe-area-inset-bottom, 0px));
   max-width: 768px;
