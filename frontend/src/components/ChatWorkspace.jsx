@@ -11,6 +11,7 @@ import {
   FileSearch,
   Library,
   Loader2,
+  Menu,
   PanelLeft,
   Paperclip,
   Plus,
@@ -637,6 +638,14 @@ export default function ChatWorkspace({ user, onSignOut }) {
       <section className="chat-shell">
         <header className="chat-topbar">
           <div className="agent-status">
+            <button
+              className="hamburger-btn icon-button"
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Open sidebar"
+            >
+              <Menu size={20} />
+            </button>
             <span className="agent-icon">
               {activeAgent?.id === "rti" ? <FileSearch size={19} /> : <Scale size={19} />}
             </span>
