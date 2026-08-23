@@ -24,30 +24,63 @@ export default function App() {
         return;
       }
 
-      const { data } = await supabase.auth.getSession();
-      setSession(data.session);
-      if (data.session) setRoute("app");
+      // Supabase email confirmation ke baad URL me error aaye
+      const hash = window.location.hash;
 
-      const result = supabase.auth.onAuthStateChange((_event, nextSession) => {
-        setSession(nextSession);
-        if (nextSession) setRoute("app");
-      });
+      if (hash.includes("error=")) {
+        setRoute("auth");
+
+        // URL clean kar do
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
+      }
+
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("Session error:", error);
+      }
+
+      setSession(data.session);
+
+      if (data.session) {
+        setRoute("app");
+      }
+
+      const result = supabase.auth.onAuthStateChange(
+        (_event, nextSession) => {
+          setSession(nextSession);
+
+          if (nextSession) {
+            setRoute("app");
+          }
+        }
+      );
 
       subscription = result.data.subscription;
+
       setLoading(false);
     }
 
     init();
-    return () => subscription?.unsubscribe();
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   const user = useMemo(() => {
-    if (session?.user) return session.user;
-    return null;
+    return session?.user || null;
   }, [session]);
 
   async function signOut() {
-    if (hasSupabaseConfig) await supabase.auth.signOut();
+    if (hasSupabaseConfig) {
+      await supabase.auth.signOut();
+    }
+
     setSession(null);
     setRoute("landing");
   }
@@ -78,5 +111,10 @@ export default function App() {
     );
   }
 
-  return <ChatWorkspace user={user || demoUser} onSignOut={signOut} />;
+  return (
+    <ChatWorkspace
+      user={user || demoUser}
+      onSignOut={signOut}
+    />
+  );
 }
